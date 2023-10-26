@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supplements List</title>
+</head>
+<body>
+    <h1>Supplements List</h1>
+    <ul>
+        <% supplements.forEach(function(supplement) { %>
+            <li>
+                <%= supplement.product_name %>
+                <form method="POST" action="/supplements/update">
+                    <input type="hidden" name="supplement_id" value="<%= supplements.product_id %>">
+                    <button type="submit">Update</button>
+                </form>
+                <form method="POST" action="/supplements/delete">
+                    <input type="hidden" name="supplement_id" value="<%= supplements.product_id %>">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>

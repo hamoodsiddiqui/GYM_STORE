@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+</head>
+<body>
+    <h1>Add Product</h1>
+
+    <form action="/supplements/add" method="POST">
+        <label for="product_name">Product Name:</label>
+        <input type="text" id="product_name" name="product_name" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required><br><br>
+
+        <label for="stock_quantity">Stock Quantity:</label>
+        <input type="number" id="stock_quantity" name="stock_quantity" required><br><br>
+
+        <label for="weight">Weight:</label>
+        <input type="number" id="weight" name="weight"><br><br>
+
+        <label for="brand">Brand:</label>
+        <select id="brand" name="brand">
+            <option>Select Brand</option> <!-- Default blank option -->
+            <option value="Brand A">Brand A</option>
+            <option value="Brand B">Brand B</option>
+            <option value="Brand C">Brand C</option>
+        </select><br><br>
+
+        <label for="expiry_date">Expiry Date:</label>
+        <input type="date" id="expiry_date" name="expiry_date"><br><br>
+
+        <input type="submit" value="Add Product">
+    </form>
+</body>
+</html>
