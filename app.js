@@ -413,38 +413,6 @@ app.get('/checkout', (req, res) => {
   });
 });
 
-
-// app.post('/cart/delete', (req, res) => {
-//   const userId = req.session.userId; // Assuming you store user ID in session during login
-
-//   // Check if the cart exists for the user
-//   const selectCartQuery = 'SELECT * FROM Cart WHERE customer_id = ?';
-
-//   db.query(selectCartQuery, [userId], (err, cartData) => {
-//     if (err) {
-//       console.error('Error checking cart:', err);
-//       return res.status(500).json({ error: 'An error occurred while checking cart' });
-//     }
-
-//     if (cartData.length === 0) {
-//       return res.status(404).json({ error: 'Cart not found' });
-//     }
-
-//     const cartId = cartData[0].cart_id;
-
-//     // Delete all items from the cart
-//     const deleteCartItemsQuery = 'DELETE FROM CartItems WHERE cart_id = ?';
-
-//     db.query(deleteCartItemsQuery, [cartId], (err) => {
-//       if (err) {
-//         console.error('Error deleting cart items:', err);
-//         return res.status(500).json({ error: 'An error occurred while deleting cart items' });
-//       }
-
-//       return res.json({ message: 'Cart deleted successfully' });
-//     });
-//   });
-// });
 app.post('/cart/delete', (req, res) => {
   const userId = req.session.userId; // Assuming you store user ID in session during login
 
@@ -686,14 +654,14 @@ app.post('/supplements/delete/:product_id', (req, res) => {
 app.post('/merchandise/delete/:product_id', (req, res) => {
   const product_id = req.params.product_id;
 
-  // Delete the merchandise
+  // Delete from the merchandise table
   const deleteMerchandiseQuery = 'DELETE FROM Merchandise WHERE product_id = ?';
   db.query(deleteMerchandiseQuery, [product_id], (err, merchandiseResult) => {
     if (err) {
       console.error('Error deleting merchandise:', err);
       res.status(500).json({ error: 'An error occurred while deleting the merchandise' });
     } else {
-      // Delete the product
+      // Delete from the product table
       const deleteProductQuery = 'DELETE FROM Products WHERE product_id = ?';
       db.query(deleteProductQuery, [product_id], (err, productResult) => {
         if (err) {
@@ -712,14 +680,14 @@ app.post('/merchandise/delete/:product_id', (req, res) => {
 app.post('/gymequipment/delete/:product_id', (req, res) => {
   const product_id = req.params.product_id;
 
-  // Delete the gym equipment
+
   const deleteGymEquipmentQuery = 'DELETE FROM GymEquipment WHERE product_id = ?';
   db.query(deleteGymEquipmentQuery, [product_id], (err, gymEquipmentResult) => {
     if (err) {
       console.error('Error deleting gym equipment:', err);
       res.status(500).json({ error: 'An error occurred while deleting the gym equipment' });
     } else {
-      // Delete the product
+      // Delete the product too
       const deleteProductQuery = 'DELETE FROM Products WHERE product_id = ?';
       db.query(deleteProductQuery, [product_id], (err, productResult) => {
         if (err) {
@@ -858,199 +826,6 @@ app.post('/supplements/update', upload.single('image'), (req, res) => {
     }
   });
 });
-// app.post('/submit-order', async (req, res) => {
-//   const userId = req.session.userId; // Assuming you store user ID in session during login
-//   //const db = require('../db'); // Import your database connection
-
-//   try {
-//     // Start a transaction
-//     await db.beginTransaction();
-
-//     // Fetch cart items
-//     const selectCartItemsQuery = `
-//       SELECT Products.product_id, Products.price, Products.stock_quantity, CartItems.quantity
-//       FROM CartItems
-//       JOIN Products ON CartItems.product_id = Products.product_id
-//       JOIN Cart ON CartItems.cart_id = Cart.cart_id
-//       WHERE Cart.customer_id = ?
-//     `;
-
-//     const cartItems = await db.queryAsync(selectCartItemsQuery, [userId]);
-
-//     // Create a new order
-//     const createOrderQuery = 'INSERT INTO Orders (customer_id, order_date, status) VALUES (?, CURRENT_TIMESTAMP, ?)';
-//     const orderResult = await db.queryAsync(createOrderQuery, [userId, 'Processing']);
-//     const orderId = orderResult.insertId;
-
-//     // Insert items into OrderItems table
-//     const insertOrderItemsQuery = 'INSERT INTO OrderItems (order_id, product_id, quantity) VALUES ?';
-//     const orderItemsValues = cartItems.map(item => [orderId, item.product_id, item.quantity]);
-//     await db.queryAsync(insertOrderItemsQuery, [orderItemsValues]);
-
-//     // Check product quantities and update/delete
-//     for (const item of cartItems) {
-//       const remainingQuantity = item.stock_quantity - item.quantity;
-
-//       if (remainingQuantity <= 0) {
-//         // If the remaining quantity is 0 or less, remove from Supplements table
-//         const removeSupplementQuery = 'DELETE FROM Supplements WHERE product_id = ?';
-//         await db.queryAsync(removeSupplementQuery, [item.product_id]);
-
-//         // Remove from Products table
-//         const removeProductQuery = 'DELETE FROM Products WHERE product_id = ?';
-//         await db.queryAsync(removeProductQuery, [item.product_id]);
-//       } else {
-//         // If remaining quantity is greater than 0, update the quantity in Products table
-//         const updateProductQuery = 'UPDATE Products SET stock_quantity = ? WHERE product_id = ?';
-//         await db.queryAsync(updateProductQuery, [remainingQuantity, item.product_id]);
-//       }
-//     }
-
-//     // Insert shipping details using user information
-//     const selectUserQuery = 'SELECT * FROM user WHERE id = ?';
-//     const user = await db.queryAsync(selectUserQuery, [userId]);
-
-//     if (user.length === 0) {
-//       throw new Error('User not found');
-//     }
-
-//     const userData = user[0];
-
-//     const insertShippingDetailsQuery = `
-//       INSERT INTO ShippingDetails (order_id, full_name, contact_no, address, payment_method, amount, transaction_date)
-//       VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-//     `;
-
-//     const { Fname, Lname, phoneno, address } = userData;
-//     const amount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0) + 500;
-
-//     await db.queryAsync(
-//       insertShippingDetailsQuery,
-//       [orderId, `${Fname} ${Lname}`, phoneno, address, 'Cash on Delivery', amount]
-//     );
-
-//     // Optionally, you may want to clear the user's cart after placing the order
-//     const clearCartQuery = 'DELETE FROM CartItems WHERE cart_id IN (SELECT cart_id FROM Cart WHERE customer_id = ?)';
-//     await db.queryAsync(clearCartQuery, [req.session.userId]);
-
-//     // Commit the transaction
-//     await db.commit();
-
-//     return res.status(200).json({ message: 'Order placed successfully' });
-//   } catch (error) {
-//     // Rollback the transaction in case of an error
-//     await db.rollback();
-
-//     console.error('Error processing order:', error);
-//     return res.status(500).json({ error: 'An error occurred while processing the order' });
-//   } finally {
-//     // Ensure to release the connection after the transaction
-//     db.release();
-//   }
-// });
-
-//const db = require('../db'); // Import your database connection
-
-// app.post('/submit-order', async (req, res) => {
-//   const userId = req.session.userId; // Assuming you store user ID in session during login
-//   let connection;
-
-//   try {
-//     // Start a transaction
-//     connection = await db.getConnection();
-//     await connection.beginTransaction();
-  
-
-//     // Fetch cart items
-//     const selectCartItemsQuery = `
-//       SELECT Products.product_id, Products.price, Products.stock_quantity, CartItems.quantity
-//       FROM CartItems
-//       JOIN Products ON CartItems.product_id = Products.product_id
-//       JOIN Cart ON CartItems.cart_id = Cart.cart_id
-//       WHERE Cart.customer_id = ?
-//     `;
-
-//     const [cartItems] = await connection.query(selectCartItemsQuery, [userId]);
-
-//     // Create a new order
-//     const createOrderQuery = 'INSERT INTO Orders (customer_id, order_date, status) VALUES (?, CURRENT_TIMESTAMP, ?)';
-//     const [orderResult] = await connection.query(createOrderQuery, [userId, 'Processing']);
-//     const orderId = orderResult.insertId;
-
-//     // Insert items into OrderItems table
-//     const insertOrderItemsQuery = 'INSERT INTO OrderItems (order_id, product_id, quantity) VALUES ?';
-//     const orderItemsValues = cartItems.map(item => [orderId, item.product_id, item.quantity]);
-//     await connection.query(insertOrderItemsQuery, [orderItemsValues]);
-
-//     // Check product quantities and update/delete
-//     for (const item of cartItems) {
-//       const remainingQuantity = item.stock_quantity - item.quantity;
-
-//       if (remainingQuantity <= 0) {
-//         // If the remaining quantity is 0 or less, remove from Supplements table
-//         const removeSupplementQuery = 'DELETE FROM Supplements WHERE product_id = ?';
-//         await db.queryAsync(removeSupplementQuery, [item.product_id]);
-
-//         // Remove from Products table
-//         const removeProductQuery = 'DELETE FROM Products WHERE product_id = ?';
-//         await db.queryAsync(removeProductQuery, [item.product_id]);
-//       } else {
-//         // If remaining quantity is greater than 0, update the quantity in Products table
-//         const updateProductQuery = 'UPDATE Products SET stock_quantity = ? WHERE product_id = ?';
-//         await db.queryAsync(updateProductQuery, [remainingQuantity, item.product_id]);
-//       }
-//     }
-
-//     // Insert shipping details using user information
-//     const selectUserQuery = 'SELECT * FROM user WHERE id = ?';
-//     const user = await db.queryAsync(selectUserQuery, [userId]);
-
-//     if (user.length === 0) {
-//       throw new Error('User not found');
-//     }
-
-//     const userData = user[0];
-
-//     const insertShippingDetailsQuery = `
-//       INSERT INTO ShippingDetails (order_id, full_name, contact_no, address, payment_method, amount, transaction_date)
-//       VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-//     `;
-
-//     const { Fname, Lname, phoneno, address } = userData;
-//     const amount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0) + 500;
-
-//     await db.queryAsync(
-//       insertShippingDetailsQuery,
-//       [orderId, `${Fname} ${Lname}`, phoneno, address, 'Cash on Delivery', amount]
-//     );
-
-//     // Optionally, you may want to clear the user's cart after placing the order
-//     const clearCartQuery = 'DELETE FROM CartItems WHERE cart_id IN (SELECT cart_id FROM Cart WHERE customer_id = ?)';
-//     await db.queryAsync(clearCartQuery, [req.session.userId]);
-
-
-//     // ... rest of your code ...
-
-//     // Commit the transaction
-//     await connection.commit();
-
-//     return res.status(200).json({ message: 'Order placed successfully' });
-//   } catch (error) {
-//     // Rollback the transaction in case of an error
-//     if (connection) {
-//       await connection.rollback();
-//     }
-
-//     console.error('Error processing order:', error);
-//     return res.status(500).json({ error: 'An error occurred while processing the order' });
-//   } finally {
-//     // Ensure to release the connection after the transaction
-//     if (connection) {
-//       connection.end();
-//     }
-//   }
-// });
-
 
 //MAIN
 app.post('/submit-order', (req, res) => {
@@ -1288,7 +1063,7 @@ app.post('/merchandise/add-to-cart/:productId', (req, res) => {
 
       let cartId;
       if (cartData.length === 0) {
-        // If the cart does not exist, create a new cart
+        // will create a new cart if cart is not active for respective customerid
         const insertCartQuery = 'INSERT INTO Cart (customer_id, date_created) VALUES (?, CURDATE())';
         db.query(insertCartQuery, [req.session.userId], (err, result) => {
           if (err) {
@@ -1302,7 +1077,7 @@ app.post('/merchandise/add-to-cart/:productId', (req, res) => {
         cartId = cartData[0].cart_id;
       }
 
-      // Check if the merchandise is already in the cart for the user
+      // Check if the merchandise is already in the cart
       const selectCartItemQuery = 'SELECT * FROM CartItems WHERE cart_id = ? AND product_id = ?';
 
       db.query(selectCartItemQuery, [cartId, productId], (err, cartItemData) => {
@@ -1393,8 +1168,7 @@ app.post('/supplements/add-to-cart/:productId', (req, res) => {
           console.error('Error checking cart items:', err);
           return res.status(500).json({ error: 'An error occurred while checking cart items' });
         }
-
-        // If the product is not in the cart, insert a new entry; otherwise, update the quantity
+        //for updating the quantity
         if (cartItemData.length === 0) {
           const insertCartItemQuery = 'INSERT INTO CartItems (cart_id, product_id, quantity) VALUES (?, ?, ?)';
           db.query(insertCartItemQuery, [cartId, product_id, 1], (err) => {
