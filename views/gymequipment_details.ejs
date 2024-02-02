@@ -1,0 +1,36 @@
+<!-- gymequipment_details.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gym Equipment Details</title>
+    <style>
+        /* Your styles for gym equipment details go here */
+    </style>
+</head>
+<body>
+    <div>
+        <a href="/cart" style="float: right; margin-right: 20px;">Go to Cart</a>
+    </div>
+
+    <h1>Gym Equipment Details</h1>
+
+    <div>
+        <img src="http://localhost:3000/<%= data.imageurl %>" alt="Gym Equipment Image">
+        <p><strong>Product ID:</strong> <%= data.product_id %></p>
+        <p><strong>Name:</strong> <%= data.product_name %></p>
+        <p><strong>Description:</strong> <%= data.description %></p>
+        <p><strong>Price:</strong> <%= data.price %></p>
+        <p><strong>Stock Quantity:</strong> <%= data.stock_quantity %></p>
+        <p><strong>Material:</strong> <%= data.material %></p>
+        <p><strong>Weight:</strong> <%= data.weight %></p>
+
+        <!-- Add to Cart Form -->
+        <form action="/gymequipment/add-to-cart/<%= data.product_id %>" method="POST">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="<%= data.stock_quantity %>" required>
+            <button type="submit">Add to Cart</button>
+        </form>
+    </div>
+</body>
+</html>
