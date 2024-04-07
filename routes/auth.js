@@ -5,6 +5,7 @@ const authController = require('../controllers/authController');
 router.get('/login', (req, res) => {
     // Logic for the sign-in page
     res.render('login.ejs'); // Render the sign-in page
+    
   });
   
   router.get('/register', (req, res) => {
