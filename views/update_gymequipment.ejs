@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Gym Equipment</title>
+</head>
+<body>
+    <h1>Update Gym Equipment</h1>
+
+    <form action="/gymequipment/update/<%= product_id %>" method="POST" enctype="multipart/form-data">
+        <!-- Hidden input for product_id -->
+        <input type="hidden" name="product_id" value="<%= product_id %>">
+
+        <label for="product_name">Product Name:</label>
+        <input type="text" id="product_name" name="product_name" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br><br>
+
+        <label for="price">Price (USD):</label>
+        <input type="number" id="price" name="price" step="0.01" min="0.01" required><br><br>
+
+        <label for="stock_quantity">Stock Quantity:</label>
+        <input type="number" id="stock_quantity" name="stock_quantity" min="0" required><br><br>
+
+        <!-- Additional fields specific to gym equipment -->
+        <label for="weight">Weight (grams):</label>
+        <input type="number" id="weight" name="weight" min="0"><br><br>
+
+        <label for="brand">Brand:</label>
+        <select id="brand" name="brand" required>
+            <option value="" disabled selected>Select Brand</option>
+            <option value="Brand A">Brand A</option>
+            <option value="Brand B">Brand B</option>
+            <option value="Brand C">Brand C</option>
+        </select><br><br>
+
+        <!-- New field for image -->
+        <label for="image">Image:</label>
+        <input type="file" name="image">
+
+        <input type="submit" value="Update Gym Equipment">
+    </form>
+</body>
+</html>
