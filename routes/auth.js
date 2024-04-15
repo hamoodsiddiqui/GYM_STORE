@@ -12,7 +12,9 @@ router.get('/login', (req, res) => {
     // Logic for the registration page
     res.render('register.ejs'); // Render the registration page
   });
-
+router.get('/index',(req,res)=>{
+  res.render('index.ejs');
+})
 router.post('/login',authController.loginUser);
 router.post('/register',authController.registerUser);
 

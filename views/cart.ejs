@@ -1,127 +1,410 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Cart Details</title>
-    <style>
-        * {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
+<html class="no-js" lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Uren - Car Accessories Shop HTML Template</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="assets/images/favicon.ico"
+    />
 
-        .box {
-            height: auto; /* Change to 'auto' to accommodate variable number of items */
-        }
+    <!-- CSS
+	============================================ -->
 
-        .top-section,
-        .main-section {
-            color: #34495e;
-            display: flex;
-            padding: 10px 0;
-            align-items: center;
-        }
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css" />
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="assets/css/vendor/font-awesome.css" />
+    <!-- Fontawesome Star -->
+    <link rel="stylesheet" href="assets/css/vendor/fontawesome-stars.css" />
+    <!-- Ion Icon -->
+    <link rel="stylesheet" href="assets/css/vendor/ion-fonts.css" />
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="assets/css/plugins/slick.css" />
+    <!-- Animation -->
+    <link rel="stylesheet" href="assets/css/plugins/animate.css" />
+    <!-- jQuery Ui -->
+    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css" />
+    <!-- Lightgallery -->
+    <link rel="stylesheet" href="assets/css/plugins/lightgallery.min.css" />
+    <!-- Nice Select -->
+    <link rel="stylesheet" href="assets/css/plugins/nice-select.css" />
 
-        .top-section {
-            height: 25%;
-            font-weight: bold;
-            background-color: hsl(0deg 0% 96.08%);
-        }
+    <!-- Vendor & Plugins CSS (Please remove the comment from below vendor.min.css & plugins.min.css for better website load performance and remove css files from the above) -->
+    <!--
+    <script src="assets/js/vendor/vendor.min.js"></script>
+    <script src="assets/js/plugins/plugins.min.js"></script>
+    -->
 
-        .main-section {
-            /* Height set to 'auto' for variable number of items */
-            display: flex;
-            flex-direction: column; /* Stack items vertically */
-        }
-        
-        .main-section-item {
-            /* Arrange items horizontally */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            width: 100%;
-        }
+    <!-- Main Style CSS (Please use minify version for better website load performance) -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!--<link rel="stylesheet" href="assets/css/style.min.css">-->
+  </head>
 
-        .top-section div,
-        .main-section div {
-            display: flex;
-            justify-content: center;
-        }
-        .btn {
-        display: inline-block;
-        padding: 8px 16px;
-        font-size: 14px;
-        font-weight: bold;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
-        border: none;
-        margin:10px;
-      }
-
-      .btn-primary {
-        background-color: #3490dc;
-        color: #ffffff;
-      }
-
-      .btn-primary:hover {
-        background-color: #276691;
-      }
-      .btn-danger{
-        background-color: red;
-        color:white
-      }
-      .btn-danger:hover{
-        background-color: rgb(148, 0, 0);
-      }
-    </style>
-</head>
-<body>
-    <div class="box">
-        <div class="top-section">
-            <div style="width: 5%">#</div>
-            <div style="width: 10%"></div>
-            <div style="width: 40%">Product</div>
-            <div style="width: 15%">Price</div>
-            <div style="width: 10%">Quantity</div>
-            <div style="width: 20%">Total</div>
-        </div>
-        <div class="main-section">
-            <% if (cartItems.length === 0) { %>
-                <p>Your cart is empty.</p>
-            <% } else { %>
-                <% cartItems.forEach((item, index) => { %>
-                    <div class="main-section-item">
-                        <div style="width: 5%"><%= index + 1 %></div>
+  <body class="template-color-1">
+    <div class="main-wrapper">
+        <header class="header-main_area header-main_area-2 bg--black">
+            <div class="header-middle_area">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-xl-3 col-lg-2 col-md-3 col-sm-5">
+                    <div class="header-logo_area">
+                      <a href="index.html">
                         <img
-                            style="width: 10%"
+                          src="assets/images/menu/logo/1.png"
+                          alt="Uren's Logo"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-9 col-sm-7">
+                    <div class="header-right_area">
+                      <ul>
+                        <li class="mobile-menu_wrap d-flex d-lg-none">
+                          <a
+                            href="#mobileMenu"
+                            class="mobile-menu_btn toolbar-btn color--white"
+                          >
+                            <i class="ion-navicon"></i>
+                          </a>
+                        </li>
+                        <li class="contact-us_wrap">
+                          <a href="tel://+123123321345"
+                            ><i class="ion-android-call"></i>+123 321 345</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="header-top_area">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="custom-category_col col-12">
+                    <div class="category-menu category-menu-hidden">
+                      <div class="category-heading">
+                        <h2 class="categories-toggle">
+                          <span>Shop By</span>
+                          <span>Department</span>
+                        </h2>
+                      </div>
+                      <div id="cate-toggle" class="category-menu-list">
+                        <ul>
+                          <li><a href="shop-left-sidebar.html">Body Parts</a></li>
+                          <li><a href="shop-left-sidebar.html">Interior</a></li>
+                          <li><a href="shop-left-sidebar.html">Audio</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="custom-menu_col col-12 d-none d-lg-block">
+                    <div class="main-menu_area position-relative">
+                      <nav class="main-nav">
+                        <ul>
+                          <li class="dropdown-holder active">
+                            <a href="index.html">Home</a>
+                          </li>
+                          <li class=""><a href="about-us.html">About Us</a></li>
+                          <li class=""><a href="contact.html">Contact</a></li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                  <div class="custom-setting_col col-12 d-none d-lg-block">
+                    <div class="ht-right_area">
+                      <div class="ht-menu">
+                        <ul>
+                          <li>
+                            <a href="/index"
+                              ><span class="fa fa-user"></span>
+                              <span>My Account</span
+                              ><i class="fa fa-chevron-down"></i
+                            ></a>
+                            <ul class="ht-dropdown ht-my_account">
+                              <li><a href="javascript:void(0)">Register</a></li>
+                              <li class="active">
+                                <a href="javascript:void(0)">Login</a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="header-top_area header-sticky bg--black">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-xl-8 col-lg-7 d-lg-block d-none">
+                    <div class="main-menu_area position-relative">
+                      <nav class="main-nav">
+                        <ul>
+                          <li class="dropdown-holder active">
+                            <a href="index.html">Home</a>
+                          </li>
+                          <li class=""><a href="about-us.html">About Us</a></li>
+                          <li class=""><a href="contact.html">Contact</a></li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 d-block d-lg-none">
+                    <div class="header-logo_area header-sticky_logo">
+                      <a href="index.html">
+                        <img
+                          src="assets/images/menu/logo/1.png"
+                          alt="Uren's Logo"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-5 col-sm-9">
+                    <div class="header-right_area">
+                      <ul>
+                        <li class="mobile-menu_wrap d-flex d-lg-none">
+                          <a
+                            href="#mobileMenu"
+                            class="mobile-menu_btn toolbar-btn color--white"
+                          >
+                            <i class="ion-navicon"></i>
+                          </a>
+                        </li>
+                        <li class="contact-us_wrap">
+                          <a href="tel://+123123321345"
+                            ><i class="ion-android-call"></i>+123 321 345</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="offcanvas-minicart_wrapper" id="miniCart">
+              <div class="offcanvas-menu-inner">
+                <a href="#" class="btn-close"><i class="ion-android-close"></i></a>
+                <div class="minicart-content">
+                  <div class="minicart-heading">
+                    <h4>Shopping Cart</h4>
+                  </div>
+                  <ul class="minicart-list">
+                    <li class="minicart-product">
+                      <a class="product-item_remove" href="javascript:void(0)"
+                        ><i class="ion-android-close"></i
+                      ></a>
+                      <div class="product-item_img">
+                        <img
+                          src="assets/images/product/small-size/1.jpg"
+                          alt="Uren's Product Image"
+                        />
+                      </div>
+                      <div class="product-item_content">
+                        <a class="product-item_title" href="shop-left-sidebar.html"
+                          >Autem ipsa ad</a
+                        >
+                        <span class="product-item_quantity">1 x $145.80</span>
+                      </div>
+                    </li>
+                    <li class="minicart-product">
+                      <a class="product-item_remove" href="javascript:void(0)"
+                        ><i class="ion-android-close"></i
+                      ></a>
+                      <div class="product-item_img">
+                        <img
+                          src="assets/images/product/small-size/2.jpg"
+                          alt="Uren's Product Image"
+                        />
+                      </div>
+                      <div class="product-item_content">
+                        <a class="product-item_title" href="shop-left-sidebar.html"
+                          >Tenetur illum amet</a
+                        >
+                        <span class="product-item_quantity">1 x $150.80</span>
+                      </div>
+                    </li>
+                    <li class="minicart-product">
+                      <a class="product-item_remove" href="javascript:void(0)"
+                        ><i class="ion-android-close"></i
+                      ></a>
+                      <div class="product-item_img">
+                        <img
+                          src="assets/images/product/small-size/3.jpg"
+                          alt="Uren's Product Image"
+                        />
+                      </div>
+                      <div class="product-item_content">
+                        <a class="product-item_title" href="shop-left-sidebar.html"
+                          >Non doloremque placeat</a
+                        >
+                        <span class="product-item_quantity">1 x $165.80</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="minicart-item_total">
+                  <span>Subtotal</span>
+                  <span class="ammount">$462.4‬0</span>
+                </div>
+                <div class="minicart-btn_area">
+                  <a
+                    href="cart.html"
+                    class="uren-btn uren-btn_dark uren-btn_fullwidth"
+                    >Minicart</a
+                  >
+                </div>
+                <div class="minicart-btn_area">
+                  <a
+                    href="checkout.html"
+                    class="uren-btn uren-btn_dark uren-btn_fullwidth"
+                    >Checkout</a
+                  >
+                </div>
+              </div>
+            </div>
+          </header>
+      <div class="breadcrumb-area">
+        <div class="container">
+          <div class="breadcrumb-content">
+            <h2>Other</h2>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li class="active">Cart</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="uren-cart-area">
+        
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="table-content table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="uren-product-remove">S.No</th>
+                      <th class="uren-product-thumbnail">images</th>
+                      <th class="cart-product-name">Product</th>
+                      <th class="uren-product-price">Unit Price</th>
+                      <th class="uren-product-quantity">Quantity</th>
+                      <th class="uren-product-subtotal">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (cartItems.length === 0) { %>
+                    <p>Your cart is empty.</p>
+                    <% } else { %> <% cartItems.forEach((item, index) => { %>
+                    <tr>
+                      <td class="uren-product-remove">
+                      <p><%= index + 1 %></p>
+                      </td>
+                      <td class="uren-product-thumbnail">
+                        <a href="javascript:void(0)"
+                          ><img
                             src="http://localhost:3000/<%= item.imageurl %>"
                             alt="<%= item.product_name %> Image"
-                        />
-                        <div style="width: 40%" class="product-info">
-                            <p><strong>Name:</strong> <%= item.product_name %></p>
-                        </div>
-                        <div style="width: 15%"><%= item.price %></div>
-                        <div style="width: 10%"><%= item.quantity %></div>
-                        <div style="width: 20%"><%= item.price * item.quantity %></div>
-                    </div>
-                <% }); %>
-            <% } %>
+                        /></a>
+                      </td>
+                      <td class="uren-product-name">
+                        <a href="javascript:void(0)"
+                          ><%= item.product_name %></a
+                        >
+                      </td>
+                      <td class="uren-product-price">
+                        <span class="amount"><%= item.price %></span>
+                      </td>
+                      <td class="quantity">
+                        <p><%= item.quantity %></p>
+                      </td>
+                      <td class="product-subtotal">
+                        <span class="amount"
+                          ><%= item.price * item.quantity %></span
+                        >
+                      </td>
+                    </tr>
+                    <% }); %> <% } %>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+                <div class="col-md-5 ml-auto">
+                  <div class="cart-page-total">
+                    <h2>Cart totals</h2>
+                  
+                    <form action="/checkout" method="get">
+                      <!-- <a href="/views/checkout.ejs"</a> -->
+                        <button class="btn btn-primary" type="submit">Proceed to Checkout</button>
+                        
+                    </form>
+                    <form action="/cart/delete" method="post">
+                        <button class="btn btn-danger mt-3" type="submit">Delete</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- Proceed to Checkout Button -->
-    <form action="/checkout" method="get">
-        <button class="btn btn-primary" type="submit">Proceed to Checkout</button>
-    </form>
+    <!-- JS
+============================================ -->
 
-    <form action="/cart/delete" method="post">
-        <button class="btn btn-danger" type="submit">Delete</button>
-    </form>
+    <!-- jQuery JS -->
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <!-- Modernizer JS -->
+    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Popper JS -->
+    <script src="assets/js/vendor/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
 
-    <a href="/cart">Go Back to Cart</a>
-</body>
+    <!-- Slick Slider JS -->
+    <script src="assets/js/plugins/slick.min.js"></script>
+    <!-- Barrating JS -->
+    <script src="assets/js/plugins/jquery.barrating.min.js"></script>
+    <!-- Counterup JS -->
+    <script src="assets/js/plugins/jquery.counterup.js"></script>
+    <!-- Nice Select JS -->
+    <script src="assets/js/plugins/jquery.nice-select.js"></script>
+    <!-- Sticky Sidebar JS -->
+    <script src="assets/js/plugins/jquery.sticky-sidebar.js"></script>
+    <!-- Jquery-ui JS -->
+    <script src="assets/js/plugins/jquery-ui.min.js"></script>
+    <script src="assets/js/plugins/jquery.ui.touch-punch.min.js"></script>
+    <!-- Lightgallery JS -->
+    <script src="assets/js/plugins/lightgallery.min.js"></script>
+    <!-- Scroll Top JS -->
+    <script src="assets/js/plugins/scroll-top.js"></script>
+    <!-- Theia Sticky Sidebar JS -->
+    <script src="assets/js/plugins/theia-sticky-sidebar.min.js"></script>
+    <!-- Waypoints JS -->
+    <script src="assets/js/plugins/waypoints.min.js"></script>
+    <!-- jQuery Zoom JS -->
+    <script src="assets/js/plugins/jquery.zoom.min.js"></script>
+
+    <!-- Vendor & Plugins JS (Please remove the comment from below vendor.min.js & plugins.min.js for better website load performance and remove js files from avobe) -->
+    <!--
+<script src="assets/js/vendor/vendor.min.js"></script>
+<script src="assets/js/plugins/plugins.min.js"></script>
+-->
+
+    <!-- Main JS -->
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>

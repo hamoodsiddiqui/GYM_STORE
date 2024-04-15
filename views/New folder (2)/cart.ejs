@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart Details</title>
+    <style>
+        * {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            height: auto; /* Change to 'auto' to accommodate variable number of items */
+        }
+
+        .top-section,
+        .main-section {
+            color: #34495e;
+            display: flex;
+            padding: 10px 0;
+            align-items: center;
+        }
+
+        .top-section {
+            height: 25%;
+            font-weight: bold;
+            background-color: hsl(0deg 0% 96.08%);
+        }
+
+        .main-section {
+            /* Height set to 'auto' for variable number of items */
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+        }
+        
+        .main-section-item {
+            /* Arrange items horizontally */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .top-section div,
+        .main-section div {
+            display: flex;
+            justify-content: center;
+        }
+        .btn {
+        display: inline-block;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        border: none;
+        margin:10px;
+      }
+
+      .btn-primary {
+        background-color: #3490dc;
+        color: #ffffff;
+      }
+
+      .btn-primary:hover {
+        background-color: #276691;
+      }
+      .btn-danger{
+        background-color: red;
+        color:white
+      }
+      .btn-danger:hover{
+        background-color: rgb(148, 0, 0);
+      }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="top-section">
+            <div style="width: 5%">#</div>
+            <div style="width: 10%"></div>
+            <div style="width: 40%">Product</div>
+            <div style="width: 15%">Price</div>
+            <div style="width: 10%">Quantity</div>
+            <div style="width: 20%">Total</div>
+        </div>
+        <div class="main-section">
+            <% if (cartItems.length === 0) { %>
+                <p>Your cart is empty.</p>
+            <% } else { %>
+                <% cartItems.forEach((item, index) => { %>
+                    <div class="main-section-item">
+                        <div style="width: 5%"><%= index + 1 %></div>
+                        <img
+                            style="width: 10%"
+                            src="http://localhost:3000/<%= item.imageurl %>"
+                            alt="<%= item.product_name %> Image"
+                        />
+                        <div style="width: 40%" class="product-info">
+                            <p><strong>Name:</strong> <%= item.product_name %></p>
+                        </div>
+                        <div style="width: 15%"><%= item.price %></div>
+                        <div style="width: 10%"><%= item.quantity %></div>
+                        <div style="width: 20%"><%= item.price * item.quantity %></div>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Proceed to Checkout Button -->
+    <form action="/checkout" method="get">
+        <button class="btn btn-primary" type="submit">Proceed to Checkout</button>
+    </form>
+
+    <form action="/cart/delete" method="post">
+        <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
+
+    <a href="/cart">Go Back to Cart</a>
+</body>
+</html>

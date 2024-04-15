@@ -22,7 +22,7 @@ exports.registerUser = (req, res) => {
     // Login logic here
     const { username, passwords } = req.body;
     const query = 'SELECT id, roles FROM user WHERE username = ? AND passwords = ?';
-    
+    console.log('Request body:', req.body);
     db.query(query, [username, passwords], (err, results) => {
       if (err) {
         console.error('Error querying the database:', err);
@@ -34,7 +34,7 @@ exports.registerUser = (req, res) => {
         req.session.userId = results[0].id;
         req.session.userRole = results[0].roles;
         const userId = req.session.userId;
-  
+        console.log(`${username} ${passwords}`)
         console.log(`LOGGED IN USER ID: ${userId}, ROLE: ${req.session.userRole}`);
         console.log(`${req.session} -- ${req.session.user}`);
         //return res.json({ message: 'Login successful' });
@@ -43,6 +43,7 @@ exports.registerUser = (req, res) => {
       else if(req.session.userRole=='customer')
       res.redirect(`http://localhost:3000/customer/products`)
       } else {
+        
         return res.status(401).json({ message: 'Invalid credentials' });
       }
     });

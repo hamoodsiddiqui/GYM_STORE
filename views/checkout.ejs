@@ -1,46 +1,583 @@
-<!-- checkout.ejs -->
-
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Checkout</title>
-    <style>
-        /* Your styles for checkout page go here */
-    </style>
-</head>
-<body>
-    <h1>Checkout</h1>
+<html class="no-js" lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Uren - Car Accessories Shop HTML Template</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="assets/images/favicon.ico"
+    />
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css" />
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="assets/css/vendor/font-awesome.css" />
+    <!-- Fontawesome Star -->
+    <link rel="stylesheet" href="assets/css/vendor/fontawesome-stars.css" />
+    <!-- Ion Icon -->
+    <link rel="stylesheet" href="assets/css/vendor/ion-fonts.css" />
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="assets/css/plugins/slick.css" />
+    <!-- Animation -->
+    <link rel="stylesheet" href="assets/css/plugins/animate.css" />
+    <!-- jQuery Ui -->
+    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css" />
+    <!-- Lightgallery -->
+    <link rel="stylesheet" href="assets/css/plugins/lightgallery.min.css" />
+    <!-- Nice Select -->
+    <link rel="stylesheet" href="assets/css/plugins/nice-select.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!--<link rel="stylesheet" href="assets/css/style.min.css">-->
+  </head>
 
-    <ul>
-        <% cartItems.forEach(item => { %>
-            <li>
-                <img src="http://localhost:3000/<%= item.imageurl %>" alt="<%= item.product_name %> Image">
-                <p><strong>Product ID:</strong> <%= item.product_id %></p>
-                <p><strong>Name:</strong> <%= item.product_name %></p>
-                <p><strong>Price:</strong> <%= item.price %></p>
-                <p><strong>Quantity:</strong> <%= item.quantity %></p>
-            </li>
-        <% }); %>
-    </ul>
+  <body class="template-color-1">
+    <div class="main-wrapper">
+      <!-- Begin Uren's Header Main Area -->
+      <header class="header-main_area header-main_area-2 bg--black">
+        <div class="header-middle_area">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xl-3 col-lg-2 col-md-3 col-sm-5">
+                <div class="header-logo_area">
+                  <a href="index.html">
+                    <img
+                      src="assets/images/menu/logo/1.png"
+                      alt="Uren's Logo"
+                    />
+                  </a>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-9 col-sm-7">
+                <div class="header-right_area">
+                  <ul>
+                    <li class="mobile-menu_wrap d-flex d-lg-none">
+                      <a
+                        href="#mobileMenu"
+                        class="mobile-menu_btn toolbar-btn color--white"
+                      >
+                        <i class="ion-navicon"></i>
+                      </a>
+                    </li>
+                    <li class="contact-us_wrap">
+                      <a href="tel://+123123321345"
+                        ><i class="ion-android-call"></i>+123 321 345</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-top_area">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="custom-category_col col-12">
+                <div class="category-menu category-menu-hidden">
+                  <div class="category-heading">
+                    <h2 class="categories-toggle">
+                      <span>Shop By</span>
+                      <span>Department</span>
+                    </h2>
+                  </div>
+                  <div id="cate-toggle" class="category-menu-list">
+                    <ul>
+                      <li><a href="shop-left-sidebar.html">Body Parts</a></li>
+                      <li><a href="shop-left-sidebar.html">Interior</a></li>
+                      <li><a href="shop-left-sidebar.html">Audio</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="custom-menu_col col-12 d-none d-lg-block">
+                <div class="main-menu_area position-relative">
+                  <nav class="main-nav">
+                    <ul>
+                      <li class="dropdown-holder active">
+                        <a href="index.html">Home</a>
+                      </li>
+                      <li class=""><a href="about-us.html">About Us</a></li>
+                      <li class=""><a href="contact.html">Contact</a></li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              <div class="custom-setting_col col-12 d-none d-lg-block">
+                <div class="ht-right_area">
+                  <div class="ht-menu">
+                    <ul>
+                      <li>
+                        <a href="my-account.html"
+                          ><span class="fa fa-user"></span>
+                          <span>My Account</span
+                          ><i class="fa fa-chevron-down"></i
+                        ></a>
+                        <ul class="ht-dropdown ht-my_account">
+                          <li><a href="javascript:void(0)">Register</a></li>
+                          <li class="active">
+                            <a href="javascript:void(0)">Login</a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-top_area header-sticky bg--black">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xl-8 col-lg-7 d-lg-block d-none">
+                <div class="main-menu_area position-relative">
+                  <nav class="main-nav">
+                    <ul>
+                      <li class="dropdown-holder active">
+                        <a href="index.html">Home</a>
+                      </li>
+                      <li class=""><a href="about-us.html">About Us</a></li>
+                      <li class=""><a href="contact.html">Contact</a></li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              <div class="col-sm-3 d-block d-lg-none">
+                <div class="header-logo_area header-sticky_logo">
+                  <a href="index.html">
+                    <img
+                      src="assets/images/menu/logo/1.png"
+                      alt="Uren's Logo"
+                    />
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-5 col-sm-9">
+                <div class="header-right_area">
+                  <ul>
+                    <li class="mobile-menu_wrap d-flex d-lg-none">
+                      <a
+                        href="#mobileMenu"
+                        class="mobile-menu_btn toolbar-btn color--white"
+                      >
+                        <i class="ion-navicon"></i>
+                      </a>
+                    </li>
+                    <li class="contact-us_wrap">
+                      <a href="tel://+123123321345"
+                        ><i class="ion-android-call"></i>+123 321 345</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="offcanvas-minicart_wrapper" id="miniCart">
+          <div class="offcanvas-menu-inner">
+            <a href="#" class="btn-close"><i class="ion-android-close"></i></a>
+            <div class="minicart-content">
+              <div class="minicart-heading">
+                <h4>Shopping Cart</h4>
+              </div>
+              <ul class="minicart-list">
+                <li class="minicart-product">
+                  <a class="product-item_remove" href="javascript:void(0)"
+                    ><i class="ion-android-close"></i
+                  ></a>
+                  <div class="product-item_img">
+                    <img
+                      src="assets/images/product/small-size/1.jpg"
+                      alt="Uren's Product Image"
+                    />
+                  </div>
+                  <div class="product-item_content">
+                    <a class="product-item_title" href="shop-left-sidebar.html"
+                      >Autem ipsa ad</a
+                    >
+                    <span class="product-item_quantity">1 x $145.80</span>
+                  </div>
+                </li>
+                <li class="minicart-product">
+                  <a class="product-item_remove" href="javascript:void(0)"
+                    ><i class="ion-android-close"></i
+                  ></a>
+                  <div class="product-item_img">
+                    <img
+                      src="assets/images/product/small-size/2.jpg"
+                      alt="Uren's Product Image"
+                    />
+                  </div>
+                  <div class="product-item_content">
+                    <a class="product-item_title" href="shop-left-sidebar.html"
+                      >Tenetur illum amet</a
+                    >
+                    <span class="product-item_quantity">1 x $150.80</span>
+                  </div>
+                </li>
+                <li class="minicart-product">
+                  <a class="product-item_remove" href="javascript:void(0)"
+                    ><i class="ion-android-close"></i
+                  ></a>
+                  <div class="product-item_img">
+                    <img
+                      src="assets/images/product/small-size/3.jpg"
+                      alt="Uren's Product Image"
+                    />
+                  </div>
+                  <div class="product-item_content">
+                    <a class="product-item_title" href="shop-left-sidebar.html"
+                      >Non doloremque placeat</a
+                    >
+                    <span class="product-item_quantity">1 x $165.80</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="minicart-item_total">
+              <span>Subtotal</span>
+              <span class="ammount">$462.4‬0</span>
+            </div>
+            <div class="minicart-btn_area">
+              <a
+                href="cart.html"
+                class="uren-btn uren-btn_dark uren-btn_fullwidth"
+                >Minicart</a
+              >
+            </div>
+            <div class="minicart-btn_area">
+              <a
+                href="checkout.html"
+                class="uren-btn uren-btn_dark uren-btn_fullwidth"
+                >Checkout</a
+              >
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- Uren's Header Main Area End Here -->
 
-    <p><strong>Total Amount:</strong> <%= totalAmount + 500.00 %></p>
-    <p><strong>Delivery Charges:</strong> 500.00</p>
+      <!-- Begin Uren's Breadcrumb Area -->
+      <div class="breadcrumb-area">
+        <div class="container">
+          <div class="breadcrumb-content">
+            <h2>Other</h2>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li class="active">Checkout</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Uren's Breadcrumb Area End Here -->
+      <!-- Begin Uren's Checkout Area -->
+      <div class="uren-cart-area">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="table-content table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="uren-product-thumbnail">images</th>
+                      <th class="cart-product-name">Product</th>
+                      <th class="uren-product-price">Unit Price</th>
+                      <th class="uren-product-quantity">Quantity</th>
+                      <th class="uren-product-subtotal">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (cartItems.length === 0) { %>
+                    <p>Your cart is empty.</p>
+                    <% } else { %> <% cartItems.forEach((item, index) => { %>
+                    <tr>
+                      <td class="uren-product-thumbnail">
+                        <a href="javascript:void(0)"
+                          ><img
+                            src="http://localhost:3000/<%= item.imageurl %>"
+                            alt="<%= item.product_name %> Image"
+                        /></a>
+                      </td>
+                      <td class="uren-product-name">
+                        <a href="javascript:void(0)"
+                          ><%= item.product_name %></a
+                        >
+                      </td>
+                      <td class="uren-product-price">
+                        <span class="amount"><%= item.price %></span>
+                      </td>
+                      <td class="quantity">
+                        <p><%= item.quantity %></p>
+                      </td>
+                      <td class="product-subtotal">
+                        <span class="amount"
+                          ><%= item.price * item.quantity %></span
+                        >
+                      </td>
+                    </tr>
+                    <% }); %> <% } %>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+                <div class="col-md-5 ml-auto">
+                  <div class="cart-page-total">
+                    <h2>Cart totals</h2>
+                    <ul>
+                      <li>Total <span>$118.60</span></li>
+                    </ul>
+                  </div>
+                  <div class="payment-method">
+                    <div class="payment-accordion">
+                      <div id="accordion">
+                        <form action="/submit-order" method="post">
+                          <div class="card">
+                            <div class="card-header" id="#payment-2">
+                              <h5 class="panel-title">
+                                <a
+                                  href="javascript:void(0)"
+                                  class="collapsed"
+                                  data-toggle="collapse"
+                                  data-target="#collapseTwo"
+                                  aria-expanded="false"
+                                  aria-controls="collapseTwo"
+                                >
+                                  Cash On Delivery
+                                </a>
+                              </h5>
+                            </div>
+                            <div
+                              id="collapseTwo"
+                              class="collapse"
+                              data-parent="#accordion"
+                            >
+                              <div class="card-body">
+                                <p>
+                                  Make your payment directly into our bank
+                                  account. Please use your Order ID as the
+                                  payment reference. Your order won’t be shipped
+                                  until the funds have cleared in our account.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="card"
+                            style="pointer-events: none; cursor: default"
+                          >
+                            <div class="card-header" id="#payment-3">
+                              <h5 class="panel-title">
+                                <a
+                                  href="javascript:void(0)"
+                                  class="collapsed"
+                                  data-toggle="collapse"
+                                  data-target="#collapseThree"
+                                  aria-expanded="false"
+                                  aria-controls="collapseThree"
+                                >
+                                  PayPal Coming Soon
+                                </a>
+                              </h5>
+                            </div>
+                            <div
+                              id="collapseThree"
+                              class="collapse"
+                              data-parent="#accordion"
+                            >
+                              <div class="card-body">
+                                <p>
+                                  Make your payment directly into our bank
+                                  account. Please use your Order ID as the
+                                  payment reference. Your order won’t be shipped
+                                  until the funds have cleared in our account.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="order-button-payment">
+                            <input value="Place order" type="submit" />
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <h2>Payment Options:</h2>
-    <form action="/submit-order" method="post">
-        <!-- Include your payment options here -->
-        <label for="paymentMethod">Select Payment Method:</label>
-        <select id="paymentMethod" name="paymentMethod">
-            <option value="cashOnDelivery">Cash on Delivery</option>
-            <option value="paypal" disabled>PayPal (Coming Soon)</option>
-            <!-- You can add more options as needed -->
-        </select>
+      <div class="uren-footer_area">
+        <div class="footer-middle_area">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="footer-widgets_info">
+                  <div class="footer-widgets_logo">
+                    <a href="#">
+                      <img
+                        src="assets/images/menu/logo/1.png"
+                        alt="Uren's Footer Logo"
+                      />
+                    </a>
+                  </div>
+                  <div class="widget-short_desc">
+                    <p>
+                      We are a team of designers and developers that create high
+                      quality HTML Template & Woocommerce, Shopify Theme.
+                    </p>
+                  </div>
+                  <div class="widgets-essential_stuff">
+                    <ul>
+                      <li class="uren-address">
+                        <span>Address:</span> The Barn, Ullenhall, Henley in
+                        Arden B578 5CC, England
+                      </li>
+                      <li class="uren-phone">
+                        <span>Call Us:</span>
+                        <a href="tel://+123123321345">+123 321 345</a>
+                      </li>
+                      <li class="uren-email">
+                        <span>Email:</span>
+                        <a href="mailto://info@yourdomain.com"
+                          >info@yourdomain.com</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="uren-social_link">
+                    <ul>
+                      <li class="facebook">
+                        <a
+                          href="https://www.facebook.com/"
+                          data-toggle="tooltip"
+                          target="_blank"
+                          title="Facebook"
+                        >
+                          <i class="fab fa-facebook"></i>
+                        </a>
+                      </li>
+                      <li class="twitter">
+                        <a
+                          href="https://twitter.com/"
+                          data-toggle="tooltip"
+                          target="_blank"
+                          title="Twitter"
+                        >
+                          <i class="fab fa-twitter-square"></i>
+                        </a>
+                      </li>
+                      <li class="google-plus">
+                        <a
+                          href="https://www.plus.google.com/discover"
+                          data-toggle="tooltip"
+                          target="_blank"
+                          title="Google Plus"
+                        >
+                          <i class="fab fa-google-plus"></i>
+                        </a>
+                      </li>
+                      <li class="instagram">
+                        <a
+                          href="https://rss.com/"
+                          data-toggle="tooltip"
+                          target="_blank"
+                          title="Instagram"
+                        >
+                          <i class="fab fa-instagram"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="footer-widgets_area">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                      <div class="footer-widgets_title">
+                        <h3>Information</h3>
+                      </div>
+                      <div class="footer-widgets">
+                        <ul>
+                          <li><a href="javascript:void(0)">About Us</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                      <div class="footer-widgets_title">
+                        <h3>Customer Service</h3>
+                      </div>
+                      <div class="footer-widgets">
+                        <ul>
+                          <li><a href="javascript:void(0)">Contact Us</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- <div class="col-lg-3 col-md-6">
+                      <div class="footer-widgets_title">
+                        <h3>My Account</h3>
+                      </div>
+                      <div class="footer-widgets">
+                        <ul>
+                          <li><a href="javascript:void(0)">My Account</a></li>
+                          <li>
+                            <a href="javascript:void(0)">Order History</a>
+                          </li>
+                          <li><a href="javascript:void(0)">Wish List</a></li>
+                          <li><a href="javascript:void(0)">Newsletter</a></li>
+                        </ul>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <p><em>More payment options may be available in the future!</em></p>
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <!-- Modernizer JS -->
+    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Popper JS -->
+    <script src="assets/js/vendor/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
 
-        <button type="submit">Submit Order</button>
-    </form>
-
-    <a href="/cart">Go Back to Cart</a>
-</body>
+    <!-- Slick Slider JS -->
+    <script src="assets/js/plugins/slick.min.js"></script>
+    <!-- Barrating JS -->
+    <script src="assets/js/plugins/jquery.barrating.min.js"></script>
+    <!-- Counterup JS -->
+    <script src="assets/js/plugins/jquery.counterup.js"></script>
+    <!-- Nice Select JS -->
+    <script src="assets/js/plugins/jquery.nice-select.js"></script>
+    <!-- Sticky Sidebar JS -->
+    <script src="assets/js/plugins/jquery.sticky-sidebar.js"></script>
+    <!-- Jquery-ui JS -->
+    <script src="assets/js/plugins/jquery-ui.min.js"></script>
+    <script src="assets/js/plugins/jquery.ui.touch-punch.min.js"></script>
+    <!-- Lightgallery JS -->
+    <script src="assets/js/plugins/lightgallery.min.js"></script>
+    <!-- Scroll Top JS -->
+    <script src="assets/js/plugins/scroll-top.js"></script>
+    <!-- Theia Sticky Sidebar JS -->
+    <script src="assets/js/plugins/theia-sticky-sidebar.min.js"></script>
+    <!-- Waypoints JS -->
+    <script src="assets/js/plugins/waypoints.min.js"></script>
+    <!-- jQuery Zoom JS -->
+    <script src="assets/js/plugins/jquery.zoom.min.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>

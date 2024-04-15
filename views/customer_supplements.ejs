@@ -2,109 +2,32 @@
 <html>
 <head>
     <title>Supplements List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 150vh;
-        }
-
-        header {
-            align-items: left;
-            background-color: #f0f0f0;
-            padding: 10px 0;
-            text-align: left;
-            margin-left: 10px;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #444;
-            padding: 10px;
-        }
-
-        nav a {
-            color: #fff;
-            align-items: left;
-            text-decoration: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            border-radius: 5px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .card {
-            width: 15vw;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            margin-right: 10px;
-            overflow: hidden;
-        }
-
-        .card img {
-            width: 100%;
-            height: 10vw; /* Adjust the height as needed */
-            object-fit: cover;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-
-        .card-body {
-            padding: 10px;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <nav>
-        <a href="/customer/supplements"><i class="fa-solid fa-user"></i>Supplements</a>
-        <a href="/customer/gymequipment"><i class="fa-solid fa-user"></i>Equipment</a>
-        <a href="/customer/merchandise"><i class="fa-solid fa-user"></i>Merchandise</a>
-        <a href="/cart"><i class="fa-solid fa-user"></i>Cart</a>
+<body class="bg-gray-100">
+    <nav class="bg-gray-800 text-white p-4">
+        <a href="/customer/supplements" class="px-4 py-2">Supplements</a>
+        <a href="/customer/gymequipment" class="px-4 py-2">Equipment</a>
+        <a href="/customer/merchandise" class="px-4 py-2">Merchandise</a>
+        <a href="/cart" class="px-4 py-2">Cart</a>
     </nav>
-    
 
-    <header>
-        <h1>Supplement List</h1>
+    <header class="p-4">
+        <h1 class="text-3xl font-bold">Supplement List</h1>
     </header>
 
-    <div class="container">
+    <div class="container flex flex-wrap gap-10">
         <% data.forEach(item => { %>
-            <a href="/supplements/details/<%= item.product_id %>">
-                <div class="card">
-                    <img src='http://localhost:3000/<%= item.imageurl %>' alt="Supplement Image">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= item.product_name %></h5>
-                        <h5 class="card-title"><%= item.price %></h5>
-                        <h5 class="card-title"><%= item.stock_quantity %></h5>
-                        <h5 class="card-title"><%= item.weight %></h5>
-                        <p class="card-text"><%= item.description %></p>
+            <a href="/supplements/details/<%= item.product_id %>" class="block">
+                <div class="card w-72 border border-gray-300 rounded-lg overflow-hidden">
+                    <img src='http://localhost:3000/<%= item.imageurl %>' alt="Supplement Image" class="w-full h-48 object-cover rounded-t-lg">
+                    <div class="card-body p-4">
+                        <h5 class="font-bold text-lg"><%= item.product_name %></h5>
+                        <h5 class="text-gray-700 mb-2">$<%= item.price %></h5>
+                        <h5 class="text-gray-700 mb-2">Stock Quantity: <%= item.stock_quantity %></h5>
+                        <h5 class="text-gray-700 mb-2">Weight: <%= item.weight %></h5>
+                        <p class="text-gray-600"><%= item.description %></p>
                         <!-- Add your buttons or links here -->
                     </div>
                 </div>
