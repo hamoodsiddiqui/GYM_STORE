@@ -46,7 +46,7 @@
     -->
 
     <!-- Main Style CSS (Please use minify version for better website load performance) -->
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="/customer/assets/css/style.css" />
     <!--<link rel="stylesheet" href="assets/css/style.min.css">-->
   </head>
 
@@ -101,9 +101,9 @@
                   </div>
                   <div id="cate-toggle" class="category-menu-list">
                     <ul>
-                      <li><a href="shop-left-sidebar.html">Body Parts</a></li>
-                      <li><a href="shop-left-sidebar.html">Interior</a></li>
-                      <li><a href="shop-left-sidebar.html">Audio</a></li>
+                      <li><a href="shop-left-sidebar.html">Gym Equipment</a></li>
+                      <li><a href="shop-left-sidebar.html">Supplements</a></li>
+                      <li><a href="shop-left-sidebar.html">Merchandise</a></li>
                     </ul>
                   </div>
                 </div>
@@ -300,7 +300,7 @@
                       <th class="cart-product-name">Product</th>
                       <th class="uren-product-price">Unit Price</th>
                       <th class="uren-product-quantity">Quantity</th>
-                      <th class="uren-product-subtotal">Total</th>
+            
                     </tr>
                   </thead>
                   <tbody>
@@ -327,12 +327,7 @@
                         <span class="amount"><%= item.price %></span>
                       </td>
                       <td class="quantity">
-                        <p><%= item.quantity %></p>
-                      </td>
-                      <td class="product-subtotal">
-                        <span class="amount"
-                          ><%= item.price * item.quantity %></span
-                        >
+                        <p><%= item.stock_quantity %></p>
                       </td>
                     </tr>
                     <% }); %> <% } %>
@@ -342,18 +337,9 @@
               <div class="row">
                 <div class="col-md-5 ml-auto">
                   <div class="cart-page-total">
-                    <h2>Cart totals</h2>
+                    <h2></h2>
 
-                    <form action="/checkout" method="get">
-                      <!-- <a href="/views/checkout.ejs"</a> -->
-                      <button class="btn btn-primary" type="submit">
-                        Proceed to Checkout
-                      </button>
-                    </form>
-                    <form action="/cart/delete" method="post">
-                      <button class="btn btn-danger mt-3" type="submit">
-                        Delete
-                      </button>
+               
                     </form>
                   </div>
                 </div>
@@ -368,45 +354,45 @@
 ============================================ -->
 
     <!-- jQuery JS -->
-    <script src="customer/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/asset/assets/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- Modernizer JS -->
-    <script src="customer/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="/asset/assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- Popper JS -->
-    <script src="/customer/assets/js/vendor/popper.min.js"></script>
+    <script src="/asset/assets/js/vendor/popper.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="customer/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="/asset/assets/js/vendor/bootstrap.min.js"></script>
 
     <!-- Slick Slider JS -->
-    <script src="customer/assets/js/plugins/slick.min.js"></script>
+    <script src="/asset/assets/js/plugins/slick.min.js"></script>
     <!-- Barrating JS -->
-    <script src="customer/assets/js/plugins/jquery.barrating.min.js"></script>
+    <script src="/asset/assets/js/plugins/jquery.barrating.min.js"></script>
     <!-- Counterup JS -->
-    <script src="customer/assets/js/plugins/jquery.counterup.js"></script>
+    <script src="/asset/assets/js/plugins/jquery.counterup.js"></script>
     <!-- Nice Select JS -->
-    <script src="customer/assets/js/plugins/jquery.nice-select.js"></script>
+    <script src="/asset/assets/js/plugins/jquery.nice-select.js"></script>
     <!-- Sticky Sidebar JS -->
-    <script src="customer/assets/js/plugins/jquery.sticky-sidebar.js"></script>
+    <script src="/asset/assets/js/plugins/jquery.sticky-sidebar.js"></script>
     <!-- Jquery-ui JS -->
-    <script src="customer/assets/js/plugins/jquery-ui.min.js"></script>
-    <script src="customer/assets/js/plugins/jquery.ui.touch-punch.min.js"></script>
+    <script src="/asset/assets/js/plugins/jquery-ui.min.js"></script>
+    <script src="/asset/assets/js/plugins/jquery.ui.touch-punch.min.js"></script>
     <!-- Lightgallery JS -->
-    <script src="customer/assets/js/plugins/lightgallery.min.js"></script>
+    <script src="/asset/assets/js/plugins/lightgallery.min.js"></script>
     <!-- Scroll Top JS -->
-    <script src="customer/assets/js/plugins/scroll-top.js"></script>
+    <script src="/asset/assets/js/plugins/scroll-top.js"></script>
     <!-- Theia Sticky Sidebar JS -->
-    <script src="customer/assets/js/plugins/theia-sticky-sidebar.min.js"></script>
+    <script src="/asset/assets/js/plugins/theia-sticky-sidebar.min.js"></script>
     <!-- Waypoints JS -->
-    <script src="customer/assets/js/plugins/waypoints.min.js"></script>
+    <script src="/asset/assets/js/plugins/waypoints.min.js"></script>
     <!-- jQuery Zoom JS -->
-    <script src="customer/assets/js/plugins/jquery.zoom.min.js"></script>
+    <script src="/asset/assets/js/plugins/jquery.zoom.min.js"></script>
 
     <!-- Vendor & Plugins JS (Please remove the comment from below vendor.min.js & plugins.min.js for better website load performance and remove js files from avobe) -->
-    <!--
-<script src="assets/js/vendor/vendor.min.js"></script>
-<script src="assets/js/plugins/plugins.min.js"></script>
--->
+    
+<script src="/asset/assets/js/vendor/vendor.min.js"></script>
+<script src="/asset/assets/js/plugins/plugins.min.js"></script>
+
 
     <!-- Main JS -->
-    <script src="customer/assets/js/main.js"></script>
+    <script src="/asset/assets/js/main.js"></script>
   </body>
 </html>

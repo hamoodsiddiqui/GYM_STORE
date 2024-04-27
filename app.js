@@ -108,6 +108,8 @@ const checkCustomer = checkUserRole("customer");
 // app.get('/', (req, res) => {
 //   res.render('index-2.ejs');
 // });
+// app.use(express.static("assets"));
+app.use("/assets", express.static(path.join(__dirname, "/views/assets")));
 
 app.get("/products", checkAdmin, (req, res) => {
   res.render("products"); // Assuming you've set up your view engine (like EJS)
@@ -290,7 +292,7 @@ app.get("/gymequipment/details/:productId", (req, res) => {
         );
         return { ...equipment, ...matchingProduct };
       });
-
+      console.log("combinedData[0]");
       // Render your 'gymequipment_details.ejs' template with the combined data
       res.render("gymequipment_details.ejs", { data: combinedData[0] }); // Assuming only one row is returned
     });
@@ -667,11 +669,9 @@ app.post("/gymequipment/add", upload.single("image"), (req, res) => {
             (err, result) => {
               if (err) {
                 console.error("Error creating new gym equipment:", err);
-                res
-                  .status(500)
-                  .json({
-                    error: "An error occurred while creating the gym equipment",
-                  });
+                res.status(500).json({
+                  error: "An error occurred while creating the gym equipment",
+                });
               } else {
                 res.redirect(`http://localhost:3000/gymequipment`);
                 //res.status(201).json({ message: 'Gym equipment created successfully and Product also created successfully' });
@@ -738,11 +738,9 @@ app.post("/supplements/add", upload.single("image"), (req, res) => {
               (err, result) => {
                 if (err) {
                   console.error("Error creating a new supplement:", err);
-                  res
-                    .status(500)
-                    .json({
-                      error: "An error occurred while creating the supplement",
-                    });
+                  res.status(500).json({
+                    error: "An error occurred while creating the supplement",
+                  });
                 } else {
                   res.redirect(`http://localhost:3000/supplements`);
                   // res.status(201).json({ message: 'Supplement created successfully and Product also created successfully' });
@@ -819,11 +817,9 @@ app.post("/merchandise/add", upload.single("image"), (req, res) => {
             (err, result) => {
               if (err) {
                 console.error("Error creating new merchandise:", err);
-                res
-                  .status(500)
-                  .json({
-                    error: "An error occurred while creating the merchandise",
-                  });
+                res.status(500).json({
+                  error: "An error occurred while creating the merchandise",
+                });
               } else {
                 res.redirect(`http://localhost:3000/merchandise`);
                 // res.status(201).json({ message: 'Merchandise created successfully and Product also created successfully' });
@@ -986,11 +982,9 @@ app.post("/gymequipment/update", upload.single("image"), (req, res) => {
           (err, result) => {
             if (err) {
               console.error("Error updating product:", err);
-              res
-                .status(500)
-                .json({
-                  error: "An error occurred while updating the product",
-                });
+              res.status(500).json({
+                error: "An error occurred while updating the product",
+              });
             }
           }
         );
@@ -1063,11 +1057,9 @@ app.post("/merchandise/update", upload.single("image"), (req, res) => {
           (err, result) => {
             if (err) {
               console.error("Error updating product:", err);
-              res
-                .status(500)
-                .json({
-                  error: "An error occurred while updating the product",
-                });
+              res.status(500).json({
+                error: "An error occurred while updating the product",
+              });
             }
           }
         );
@@ -1141,11 +1133,9 @@ app.post("/supplements/update", upload.single("image"), (req, res) => {
             (err, result) => {
               if (err) {
                 console.error("Error updating product:", err);
-                res
-                  .status(500)
-                  .json({
-                    error: "An error occurred while updating the product",
-                  });
+                res.status(500).json({
+                  error: "An error occurred while updating the product",
+                });
               }
             }
           );
@@ -1397,11 +1387,9 @@ app.post("/submit-order", (req, res) => {
       db.query(insertOrderItemsQuery, orderItemsValues, (err) => {
         if (err) {
           console.error("Error inserting into OrderItems:", err);
-          return res
-            .status(500)
-            .json({
-              error: "An error occurred while inserting into OrderItems",
-            });
+          return res.status(500).json({
+            error: "An error occurred while inserting into OrderItems",
+          });
         }
 
         // Check product quantities and update/delete
@@ -1450,11 +1438,9 @@ app.post("/submit-order", (req, res) => {
         db.query(selectUserQuery, [userId], (err, user) => {
           if (err) {
             console.error("Error fetching user information:", err);
-            return res
-              .status(500)
-              .json({
-                error: "An error occurred while fetching user information",
-              });
+            return res.status(500).json({
+              error: "An error occurred while fetching user information",
+            });
           }
 
           if (user.length === 0) {
@@ -1488,12 +1474,10 @@ app.post("/submit-order", (req, res) => {
             (err) => {
               if (err) {
                 console.error("Error inserting into ShippingDetails:", err);
-                return res
-                  .status(500)
-                  .json({
-                    error:
-                      "An error occurred while inserting into ShippingDetails",
-                  });
+                return res.status(500).json({
+                  error:
+                    "An error occurred while inserting into ShippingDetails",
+                });
               }
 
               // Optionally, you may want to clear the user's cart after placing the order
@@ -1502,11 +1486,9 @@ app.post("/submit-order", (req, res) => {
               db.query(clearCartQuery, [req.session.userId], (err) => {
                 if (err) {
                   console.error("Error clearing cart:", err);
-                  return res
-                    .status(500)
-                    .json({
-                      error: "An error occurred while clearing the cart",
-                    });
+                  return res.status(500).json({
+                    error: "An error occurred while clearing the cart",
+                  });
                 }
 
                 //return res.status(200).json({ message: 'Order placed successfully' });
@@ -1524,6 +1506,7 @@ app.post("/gymequipment/add-to-cart/:productId", (req, res) => {
   const productId = req.params.productId;
   const userId = req.session.userId; // Assuming you store user ID in session during login
   const quantity = req.body.quantity;
+  console.log(`USER ID WHEN ADDING TO CART IS: ${userId}`);
   // Fetch product information based on the productId
   const selectProductQuery = "SELECT * FROM Products WHERE product_id = ?";
 
@@ -1597,11 +1580,9 @@ app.post("/gymequipment/add-to-cart/:productId", (req, res) => {
               (err) => {
                 if (err) {
                   console.error("Error adding item to cart:", err);
-                  return res
-                    .status(500)
-                    .json({
-                      error: "An error occurred while adding item to cart",
-                    });
+                  return res.status(500).json({
+                    error: "An error occurred while adding item to cart",
+                  });
                 }
                 console.log("QUANTITY: ", quantity);
                 //return res.json({ message: 'Item added to cart successfully' });
@@ -1614,12 +1595,10 @@ app.post("/gymequipment/add-to-cart/:productId", (req, res) => {
             db.query(updateCartItemQuery, [cartId, productId], (err) => {
               if (err) {
                 console.error("Error updating item quantity in cart:", err);
-                return res
-                  .status(500)
-                  .json({
-                    error:
-                      "An error occurred while updating item quantity in cart",
-                  });
+                return res.status(500).json({
+                  error:
+                    "An error occurred while updating item quantity in cart",
+                });
               }
 
               //return res.json({ message: 'Item quantity updated in cart successfully' });
@@ -1707,11 +1686,9 @@ app.post("/merchandise/add-to-cart/:productId", (req, res) => {
             db.query(insertCartItemQuery, [cartId, product_id, 1], (err) => {
               if (err) {
                 console.error("Error adding item to cart:", err);
-                return res
-                  .status(500)
-                  .json({
-                    error: "An error occurred while adding item to cart",
-                  });
+                return res.status(500).json({
+                  error: "An error occurred while adding item to cart",
+                });
               }
 
               //return res.json({ message: 'Item added to cart successfully' });
@@ -1723,12 +1700,10 @@ app.post("/merchandise/add-to-cart/:productId", (req, res) => {
             db.query(updateCartItemQuery, [cartId, productId], (err) => {
               if (err) {
                 console.error("Error updating item quantity in cart:", err);
-                return res
-                  .status(500)
-                  .json({
-                    error:
-                      "An error occurred while updating item quantity in cart",
-                  });
+                return res.status(500).json({
+                  error:
+                    "An error occurred while updating item quantity in cart",
+                });
               }
 
               //return res.json({ message: 'Item quantity updated in cart successfully' });
@@ -1815,11 +1790,9 @@ app.post("/supplements/add-to-cart/:productId", (req, res) => {
             db.query(insertCartItemQuery, [cartId, product_id, 1], (err) => {
               if (err) {
                 console.error("Error adding item to cart:", err);
-                return res
-                  .status(500)
-                  .json({
-                    error: "An error occurred while adding item to cart",
-                  });
+                return res.status(500).json({
+                  error: "An error occurred while adding item to cart",
+                });
               }
 
               // return res.json({ message: 'Item added to cart successfully' });
@@ -1831,12 +1804,10 @@ app.post("/supplements/add-to-cart/:productId", (req, res) => {
             db.query(updateCartItemQuery, [cartId, productId], (err) => {
               if (err) {
                 console.error("Error updating item quantity in cart:", err);
-                return res
-                  .status(500)
-                  .json({
-                    error:
-                      "An error occurred while updating item quantity in cart",
-                  });
+                return res.status(500).json({
+                  error:
+                    "An error occurred while updating item quantity in cart",
+                });
               }
 
               //return res.json({ message: 'Item quantity updated in cart successfully' });
@@ -1860,6 +1831,9 @@ app.get("/index", (req, res) => {
 // app.get('/', (req, res) => {
 //   res.render('index.ejs');
 // });
+app.get("/parhnaykashouq", (req, res) => {
+  res.render("parhnaykashouq.ejs");
+});
 app.use((req, res) => {
   res.status(404).send("Not Found");
 });
