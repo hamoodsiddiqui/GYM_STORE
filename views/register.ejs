@@ -13,7 +13,7 @@
       >
         Register
       </h2>
-      <form>
+      <form action="/register" method="POST">
         <div class="space-y-12">
           <div class="border-b border-gray-900/10 pb-12">
             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -26,8 +26,8 @@
                 <div class="mt-2">
                   <input
                     type="text"
-                    name="first-name"
-                    id="first-name"
+                    name="Fname"
+                    id="Fname"
                     autocomplete="given-name"
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -43,8 +43,8 @@
                 <div class="mt-2">
                   <input
                     type="text"
-                    name="last-name"
-                    id="last-name"
+                    name="Lname"
+                    id="Lname"
                     autocomplete="family-name"
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -77,8 +77,8 @@
                 <div class="mt-2">
                   <input
                     type="password"
-                    name="password"
-                    id="password"
+                    name="passwords"
+                    id="passwords"
                     autocomplete="family-name"
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -113,7 +113,7 @@
                     id="address"
                     name="address"
                     type="text"
-                    autocomplete="email"
+                    autocomplete=""
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -144,9 +144,9 @@
                 >
                 <div class="mt-2">
                   <input
-                    type="number"
-                    name="phone-number"
-                    id="phone-number"
+                    type="text"
+                    name="phoneno"
+                    id="phoneno"
                     autocomplete="address-level1"
                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
