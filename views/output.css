@@ -601,6 +601,10 @@ h1,
   }
 }
 
+.collapse {
+  visibility: collapse;
+}
+
 .-mb-20 {
   margin-bottom: -5rem;
 }
@@ -811,6 +815,10 @@ h1,
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.underline {
+  text-decoration-line: underline;
 }
 
 .shadow-sm {
