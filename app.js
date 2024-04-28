@@ -9,7 +9,13 @@ const MySQLStore = require("express-mysql-session")(session);
 const auth = require("./routes/auth");
 const methodOverride = require("method-override");
 const multer = require("multer");
+const dotenv = require("dotenv");
+dotenv.config();
 const fs = require("fs");
+app.use(
+  "/assets",
+  express.static(path.join(__dirname, "/views/customer/assets"))
+);
 // Add this middleware to serve static files
 app.use(express.static("public"));
 //app.use(express.static('dist'));
@@ -46,7 +52,7 @@ const sessionStore = new MySQLStore({
   // Use the same database connection as your db module
   database: db.database,
 });
-const port = 3000;
+const port = process.env.API_PORT;
 app.use(
   session({
     secret: "vital-signs", // Set a secret key for session data
@@ -57,7 +63,7 @@ app.use(
 );
 
 app.listen(port, () => {
-  console.log(`Server listening on http://localhost:${port}`);
+  // console.log(`Server listening on http://localhost:${port}`);
 });
 app.use(express.static("views"));
 //app.set('views', path.join(__dirname, 'views'));
@@ -109,14 +115,13 @@ const checkCustomer = checkUserRole("customer");
 //   res.render('index-2.ejs');
 // });
 // app.use(express.static("assets"));
-app.use("/assets", express.static(path.join(__dirname, "/views/assets")));
 
 app.get("/products", checkAdmin, (req, res) => {
-  res.render("products"); // Assuming you've set up your view engine (like EJS)
+  res.render("admin/products"); // Assuming you've set up your view engine (like EJS)
 });
-app.get("/customer/products", (req, res) => {
-  res.render("customer_products"); // Assuming you've set up your view engine (like EJS)
-});
+// app.get("/customer/products", (req, res) => {
+//   res.render("customer_products"); // Assuming you've set up your view engine (like EJS)
+// });
 
 app.get("/merchandise", checkAdmin, (req, res) => {
   const selectMerchandiseQuery = "SELECT * FROM Merchandise";
@@ -146,7 +151,7 @@ app.get("/merchandise", checkAdmin, (req, res) => {
           });
 
           // Render your 'merchandise.ejs' template with the combined data
-          res.render("merchandise.ejs", { data: combinedData });
+          res.render("admin/merchandise.ejs", { data: combinedData });
         }
       });
     }
@@ -181,7 +186,7 @@ app.get("/supplements", checkAdmin, (req, res) => {
           });
 
           // Render your 'supplements.ejs' template with the combined data
-          res.render("supplements.ejs", { data: combinedData });
+          res.render("admin/supplements.ejs", { data: combinedData });
         }
       });
     }
@@ -215,7 +220,7 @@ app.get("/gymequipment", checkAdmin, (req, res) => {
           });
 
           // Render your 'gymequipment.ejs' template with the combined data
-          res.render("gymequipment.ejs", { data: combinedData });
+          res.render("admin/gymequipment.ejs", { data: combinedData });
         }
       });
     }
@@ -256,7 +261,7 @@ app.get("/supplements/details/:productId", (req, res) => {
       });
 
       // Render your 'details.ejs' template with the combined data
-      res.render("supplements_details.ejs", { data: combinedData[0] }); // Assuming only one row is returned
+      res.render("customer/supplements_details.ejs", { data: combinedData[0] }); // Assuming only one row is returned
     });
   });
 });
@@ -294,7 +299,9 @@ app.get("/gymequipment/details/:productId", (req, res) => {
       });
       console.log("combinedData[0]");
       // Render your 'gymequipment_details.ejs' template with the combined data
-      res.render("gymequipment_details.ejs", { data: combinedData[0] }); // Assuming only one row is returned
+      res.render("customer/gymequipment_details.ejs", {
+        data: combinedData[0],
+      }); // Assuming only one row is returned
     });
   });
 });
@@ -332,18 +339,20 @@ app.get("/merchandise/details/:productId", (req, res) => {
       });
 
       // Render your 'merchandise_details.ejs' template with the combined data
-      res.render("merchandise_details.ejs", { merchandise: combinedData[0] }); // Assuming only one row is returned
+      res.render("customer/merchandise_details.ejs", {
+        merchandise: combinedData[0],
+      }); // Assuming only one row is returned
     });
   });
 });
 
 app.get("/merchandise/add", checkAdmin, (req, res) => {
   // Render your 'gymequipment.ejs' template with the combined data
-  res.render("add_merchandise.ejs");
+  res.render("admin/add_merchandise.ejs");
 });
 app.get("/gymequipment/add", checkAdmin, (req, res) => {
   // Render your 'gymequipment.ejs' template with the combined data
-  res.render("add_gymequipment.ejs");
+  res.render("admin/add_gymequipment.ejs");
 });
 
 app.get("/customer/gymequipment", (req, res) => {
@@ -374,7 +383,9 @@ app.get("/customer/gymequipment", (req, res) => {
           });
 
           // Render your 'customer_gymequipment.ejs' template with the combined data
-          res.render("customer_gymequipment.ejs", { data: combinedData });
+          res.render("customer/customer_gymequipment.ejs", {
+            data: combinedData,
+          });
         }
       });
     }
@@ -409,7 +420,9 @@ app.get("/customer/merchandise", (req, res) => {
           });
 
           // Render your 'customer_merchandise.ejs' template with the combined data
-          res.render("customer_merchandise.ejs", { data: combinedData });
+          res.render("customer/customer_merchandise.ejs", {
+            data: combinedData,
+          });
         }
       });
     }
@@ -444,7 +457,9 @@ app.get("/customer/supplements", (req, res) => {
           });
 
           // Render your 'supplements.ejs' template with the combined data
-          res.render("customer_supplements.ejs", { data: combinedData });
+          res.render("customer/customer_supplements.ejs", {
+            data: combinedData,
+          });
         }
       });
     }
@@ -476,7 +491,7 @@ app.get("/checkout", (req, res) => {
     }, 0);
 
     // Render your 'checkout.ejs' template with the fetched cart items and total amount
-    res.render("checkout.ejs", { cartItems, totalAmount });
+    res.render("customer/checkout.ejs", { cartItems, totalAmount });
   });
 });
 
@@ -554,7 +569,7 @@ app.post("/cart/delete", (req, res) => {
         }
 
         //return res.json({ message: 'Cart and cart items deleted successfully' });
-        res.redirect(`http://localhost:3000/cart`);
+        res.redirect(`http://localhost:port/cart`);
       });
     });
   });
@@ -581,13 +596,13 @@ app.get("/cart", (req, res) => {
         .json({ error: "An error occurred while fetching cart items" });
     } else {
       // Render your 'cart.ejs' template with the fetched cart items
-      res.render("cart.ejs", { cartItems: cartItems });
+      res.render("customer/cart.ejs", { cartItems: cartItems });
     }
   });
 });
 
 app.get("/supplements/add", checkAdmin, (req, res) => {
-  res.render("add_supplements.ejs");
+  res.render("admin/add_supplements.ejs");
 });
 //  app.get('/supplements/update', (req, res) => {
 //    res.render('update_supplements.ejs');
@@ -596,19 +611,19 @@ app.get("/supplements/update/:product_id", checkAdmin, (req, res) => {
   const product_id = req.params.product_id; // You can get the product_id from the request, possibly as a query parameter
   console.log(`${product_id}`);
   req.session.product_id = product_id;
-  res.render("update_supplements.ejs", { product_id: product_id });
+  res.render("admin/update_supplements.ejs", { product_id: product_id });
 });
 app.get("/gymequipment/update/:product_id", checkAdmin, (req, res) => {
   const product_id = req.params.product_id;
   console.log(`${product_id}`);
   req.session.product_id = product_id;
-  res.render("update_gymequipment.ejs", { product_id: product_id });
+  res.render("admin/update_gymequipment.ejs", { product_id: product_id });
 });
 app.get("/merchandise/update/:product_id", checkAdmin, (req, res) => {
   const product_id = req.params.product_id; // You can get the product_id from the request, possibly as a query parameter
   console.log(`${product_id}`);
   req.session.product_id = product_id;
-  res.render("update_merchandise.ejs", { product_id: product_id });
+  res.render("admin/update_merchandise.ejs", { product_id: product_id });
 });
 app.post("/gymequipment/add", upload.single("image"), (req, res) => {
   const {
@@ -673,7 +688,7 @@ app.post("/gymequipment/add", upload.single("image"), (req, res) => {
                   error: "An error occurred while creating the gym equipment",
                 });
               } else {
-                res.redirect(`http://localhost:3000/gymequipment`);
+                res.redirect(`http://localhost:port/gymequipment`);
                 //res.status(201).json({ message: 'Gym equipment created successfully and Product also created successfully' });
               }
             }
@@ -742,13 +757,13 @@ app.post("/supplements/add", upload.single("image"), (req, res) => {
                     error: "An error occurred while creating the supplement",
                   });
                 } else {
-                  res.redirect(`http://localhost:3000/supplements`);
+                  res.redirect(`http://localhost:port/supplements`);
                   // res.status(201).json({ message: 'Supplement created successfully and Product also created successfully' });
                 }
               }
             );
           } else {
-            //res.redirect(`http://localhost:3000/supplements`)
+            //res.redirect(`http://localhost:port/supplements`)
             res.status(201).json({ message: "Product created successfully" });
           }
         }
@@ -821,7 +836,7 @@ app.post("/merchandise/add", upload.single("image"), (req, res) => {
                   error: "An error occurred while creating the merchandise",
                 });
               } else {
-                res.redirect(`http://localhost:3000/merchandise`);
+                res.redirect(`http://localhost:port/merchandise`);
                 // res.status(201).json({ message: 'Merchandise created successfully and Product also created successfully' });
               }
             }
@@ -860,7 +875,7 @@ app.post("/supplements/delete/:product_id", (req, res) => {
             `Product with ID ${product_id} and its supplement deleted successfully`
           );
           //res.status(200).json({ message: 'Product and supplement deleted successfully' });
-          res.redirect(`http://localhost:3000/supplements`);
+          res.redirect(`http://localhost:port/supplements`);
         }
       });
     }
@@ -891,7 +906,7 @@ app.post("/merchandise/delete/:product_id", (req, res) => {
             `Product with ID ${product_id} and its merchandise deleted successfully`
           );
           //res.status(200).json({ message: 'Product and merchandise deleted successfully' });
-          res.redirect(`http://localhost:3000/merchandise`);
+          res.redirect(`http://localhost:port/merchandise`);
         }
       });
     }
@@ -924,7 +939,7 @@ app.post("/gymequipment/delete/:product_id", (req, res) => {
             `Product with ID ${product_id} and its gym equipment deleted successfully`
           );
           //res.status(200).json({ message: 'Product and gym equipment deleted successfully' });
-          res.redirect(`http://localhost:3000/gymequipment`);
+          res.redirect(`http://localhost:port/gymequipment`);
         }
       });
     }
@@ -993,7 +1008,7 @@ app.post("/gymequipment/update", upload.single("image"), (req, res) => {
       console.log("Database update result:", result);
       console.log("Gym equipment and Product updated successfully");
       // res.status(200).json({ message: 'Gym equipment and Product updated successfully' });
-      res.redirect(`http://localhost:3000/gymequipment`);
+      res.redirect(`http://localhost:port/gymequipment`);
     }
   });
 });
@@ -1068,7 +1083,7 @@ app.post("/merchandise/update", upload.single("image"), (req, res) => {
       console.log("Database update result:", result);
       console.log("Merchandise and Product updated successfully");
       // res.status(200).json({ message: 'Merchandise and Product updated successfully' });
-      res.redirect(`http://localhost:3000/merchandise`);
+      res.redirect(`http://localhost:port/merchandise`);
     }
   });
 });
@@ -1145,7 +1160,7 @@ app.post("/supplements/update", upload.single("image"), (req, res) => {
         console.log("Database update result:", result);
         console.log("Supplement and Product updated successfully");
         //res.status(200).json({ message: 'Supplement and Product updated successfully' });
-        res.redirect(`http://localhost:3000/supplements`);
+        res.redirect(`http://localhost:port/supplements`);
       }
     }
   );
@@ -1492,7 +1507,7 @@ app.post("/submit-order", (req, res) => {
                 }
 
                 //return res.status(200).json({ message: 'Order placed successfully' });
-                res.redirect(`http://localhost:3000/customer/products`);
+                res.redirect(`http://localhost:port/customer/products`);
               });
             }
           );
@@ -1586,7 +1601,7 @@ app.post("/gymequipment/add-to-cart/:productId", (req, res) => {
                 }
                 console.log("QUANTITY: ", quantity);
                 //return res.json({ message: 'Item added to cart successfully' });
-                res.redirect(`http://localhost:3000/customer/gymequipment`);
+                res.redirect(`http://localhost:port/customer/gymequipment`);
               }
             );
           } else {
@@ -1602,7 +1617,7 @@ app.post("/gymequipment/add-to-cart/:productId", (req, res) => {
               }
 
               //return res.json({ message: 'Item quantity updated in cart successfully' });
-              res.redirect(`http://localhost:3000/customer/gymequipment`);
+              res.redirect(`http://localhost:port/customer/gymequipment`);
             });
           }
         }
@@ -1692,7 +1707,7 @@ app.post("/merchandise/add-to-cart/:productId", (req, res) => {
               }
 
               //return res.json({ message: 'Item added to cart successfully' });
-              res.redirect(`http://localhost:3000/customer/merchandise`);
+              res.redirect(`http://localhost:port/customer/merchandise`);
             });
           } else {
             const updateCartItemQuery =
@@ -1707,7 +1722,7 @@ app.post("/merchandise/add-to-cart/:productId", (req, res) => {
               }
 
               //return res.json({ message: 'Item quantity updated in cart successfully' });
-              res.redirect(`http://localhost:3000/customer/merchandise`);
+              res.redirect(`http://localhost:port/customer/merchandise`);
             });
           }
         }
@@ -1796,7 +1811,7 @@ app.post("/supplements/add-to-cart/:productId", (req, res) => {
               }
 
               // return res.json({ message: 'Item added to cart successfully' });
-              res.redirect(`http://localhost:3000/customer/supplements`);
+              res.redirect(`http://localhost:port/customer/supplements`);
             });
           } else {
             const updateCartItemQuery =
@@ -1811,7 +1826,7 @@ app.post("/supplements/add-to-cart/:productId", (req, res) => {
               }
 
               //return res.json({ message: 'Item quantity updated in cart successfully' });
-              res.redirect(`http://localhost:3000/customer/supplements`);
+              res.redirect(`http://localhost:port/customer/supplements`);
             });
           }
         }
@@ -1821,19 +1836,20 @@ app.post("/supplements/add-to-cart/:productId", (req, res) => {
 });
 
 app.use(auth);
-app.get("/", (req, res) => {
+app.get("/index-2", (req, res) => {
   res.render("index-2");
 });
-app.get("/index", (req, res) => {
+
+app.get("/", (req, res) => {
   res.render("index");
 });
 
 // app.get('/', (req, res) => {
 //   res.render('index.ejs');
 // });
-app.get("/parhnaykashouq", (req, res) => {
-  res.render("parhnaykashouq.ejs");
-});
+// app.get("/parhnaykashouq", (req, res) => {
+//   res.render("parhnaykashouq.ejs");
+// });
 app.use((req, res) => {
   res.status(404).send("Not Found");
 });

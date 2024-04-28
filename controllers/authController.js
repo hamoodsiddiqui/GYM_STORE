@@ -14,7 +14,7 @@ exports.registerUser = (req, res) => {
       } else {
         console.log("User registered successfully. User ID:", result.insertId);
         // return res.json({ message: 'Registration successful' });
-        res.redirect(`http://localhost:3000/`);
+        res.redirect(`http://localhost:3000/login`);
       }
     }
   );
@@ -46,7 +46,7 @@ exports.loginUser = (req, res) => {
       if (req.session.userRole == "admin")
         res.redirect(`http://localhost:3000/products`);
       else if (req.session.userRole == "customer")
-        res.redirect(`http://localhost:3000/`);
+        res.redirect(`http://localhost:3000/index-2`);
     } else {
       return res.status(401).json({ message: "Invalid credentials" });
     }
