@@ -53,7 +53,7 @@ const sessionStore = new MySQLStore({
   // Use the same database connection as your db module
   database: db.database,
 });
-const port = process.env.API_PORT;
+const port = 3000;
 app.use(
   session({
     secret: "vital-signs", // Set a secret key for session data
@@ -570,7 +570,7 @@ app.post("/cart/delete", (req, res) => {
         }
 
         //return res.json({ message: 'Cart and cart items deleted successfully' });
-        res.redirect(`http://localhost:port/cart`);
+        res.redirect(`http://localhost:3000/cart`);
       });
     });
   });
@@ -689,7 +689,7 @@ app.post("/gymequipment/add", upload.single("image"), (req, res) => {
                   error: "An error occurred while creating the gym equipment",
                 });
               } else {
-                res.redirect(`http://localhost:port/gymequipment`);
+                res.redirect(`http://localhost:3000/gymequipment`);
                 //res.status(201).json({ message: 'Gym equipment created successfully and Product also created successfully' });
               }
             }
@@ -758,13 +758,13 @@ app.post("/supplements/add", upload.single("image"), (req, res) => {
                     error: "An error occurred while creating the supplement",
                   });
                 } else {
-                  res.redirect(`http://localhost:port/supplements`);
+                  res.redirect(`http://localhost:3000/supplements`);
                   // res.status(201).json({ message: 'Supplement created successfully and Product also created successfully' });
                 }
               }
             );
           } else {
-            //res.redirect(`http://localhost:port/supplements`)
+            //res.redirect(`http://localhost:3000/supplements`)
             res.status(201).json({ message: "Product created successfully" });
           }
         }
@@ -837,7 +837,7 @@ app.post("/merchandise/add", upload.single("image"), (req, res) => {
                   error: "An error occurred while creating the merchandise",
                 });
               } else {
-                res.redirect(`http://localhost:port/merchandise`);
+                res.redirect(`http://localhost:3000/merchandise`);
                 // res.status(201).json({ message: 'Merchandise created successfully and Product also created successfully' });
               }
             }
@@ -876,7 +876,7 @@ app.post("/supplements/delete/:product_id", (req, res) => {
             `Product with ID ${product_id} and its supplement deleted successfully`
           );
           //res.status(200).json({ message: 'Product and supplement deleted successfully' });
-          res.redirect(`http://localhost:port/supplements`);
+          res.redirect(`http://localhost:3000/supplements`);
         }
       });
     }
@@ -907,7 +907,7 @@ app.post("/merchandise/delete/:product_id", (req, res) => {
             `Product with ID ${product_id} and its merchandise deleted successfully`
           );
           //res.status(200).json({ message: 'Product and merchandise deleted successfully' });
-          res.redirect(`http://localhost:port/merchandise`);
+          res.redirect(`http://localhost:3000/merchandise`);
         }
       });
     }
@@ -940,7 +940,7 @@ app.post("/gymequipment/delete/:product_id", (req, res) => {
             `Product with ID ${product_id} and its gym equipment deleted successfully`
           );
           //res.status(200).json({ message: 'Product and gym equipment deleted successfully' });
-          res.redirect(`http://localhost:port/gymequipment`);
+          res.redirect(`http://localhost:3000/gymequipment`);
         }
       });
     }
@@ -1009,7 +1009,7 @@ app.post("/gymequipment/update", upload.single("image"), (req, res) => {
       console.log("Database update result:", result);
       console.log("Gym equipment and Product updated successfully");
       // res.status(200).json({ message: 'Gym equipment and Product updated successfully' });
-      res.redirect(`http://localhost:port/gymequipment`);
+      res.redirect(`http://localhost:3000/gymequipment`);
     }
   });
 });
@@ -1084,7 +1084,7 @@ app.post("/merchandise/update", upload.single("image"), (req, res) => {
       console.log("Database update result:", result);
       console.log("Merchandise and Product updated successfully");
       // res.status(200).json({ message: 'Merchandise and Product updated successfully' });
-      res.redirect(`http://localhost:port/merchandise`);
+      res.redirect(`http://localhost:3000/merchandise`);
     }
   });
 });
@@ -1161,7 +1161,7 @@ app.post("/supplements/update", upload.single("image"), (req, res) => {
         console.log("Database update result:", result);
         console.log("Supplement and Product updated successfully");
         //res.status(200).json({ message: 'Supplement and Product updated successfully' });
-        res.redirect(`http://localhost:port/supplements`);
+        res.redirect(`http://localhost:3000/supplements`);
       }
     }
   );
@@ -1508,7 +1508,7 @@ app.post("/submit-order", (req, res) => {
                 }
 
                 //return res.status(200).json({ message: 'Order placed successfully' });
-                res.redirect(`http://localhost:port/customer/products`);
+                res.redirect(`http://localhost:3000/index-2`);
               });
             }
           );
@@ -1602,7 +1602,7 @@ app.post("/gymequipment/add-to-cart/:productId", (req, res) => {
                 }
                 console.log("QUANTITY: ", quantity);
                 //return res.json({ message: 'Item added to cart successfully' });
-                res.redirect(`http://localhost:port/customer/gymequipment`);
+                res.redirect(`http://localhost:3000/customer/gymequipment`);
               }
             );
           } else {
@@ -1618,7 +1618,7 @@ app.post("/gymequipment/add-to-cart/:productId", (req, res) => {
               }
 
               //return res.json({ message: 'Item quantity updated in cart successfully' });
-              res.redirect(`http://localhost:port/customer/gymequipment`);
+              res.redirect(`http://localhost:3000/customer/gymequipment`);
             });
           }
         }
@@ -1708,7 +1708,7 @@ app.post("/merchandise/add-to-cart/:productId", (req, res) => {
               }
 
               //return res.json({ message: 'Item added to cart successfully' });
-              res.redirect(`http://localhost:port/customer/merchandise`);
+              res.redirect(`http://localhost:3000/customer/merchandise`);
             });
           } else {
             const updateCartItemQuery =
@@ -1723,7 +1723,7 @@ app.post("/merchandise/add-to-cart/:productId", (req, res) => {
               }
 
               //return res.json({ message: 'Item quantity updated in cart successfully' });
-              res.redirect(`http://localhost:port/customer/merchandise`);
+              res.redirect(`http://localhost:3000/customer/merchandise`);
             });
           }
         }
@@ -1812,7 +1812,7 @@ app.post("/supplements/add-to-cart/:productId", (req, res) => {
               }
 
               // return res.json({ message: 'Item added to cart successfully' });
-              res.redirect(`http://localhost:port/customer/supplements`);
+              res.redirect(`http://localhost:3000/customer/supplements`);
             });
           } else {
             const updateCartItemQuery =
@@ -1827,7 +1827,7 @@ app.post("/supplements/add-to-cart/:productId", (req, res) => {
               }
 
               //return res.json({ message: 'Item quantity updated in cart successfully' });
-              res.redirect(`http://localhost:port/customer/supplements`);
+              res.redirect(`http://localhost:3000/customer/supplements`);
             });
           }
         }
