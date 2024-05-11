@@ -1851,6 +1851,30 @@ app.get("/", (req, res) => {
 // app.get("/parhnaykashouq", (req, res) => {
 //   res.render("parhnaykashouq.ejs");
 // });
+
+// POST route to handle resetting forgotten password
+app.post("/forgot-password", (req, res) => {
+  const { email, passwords } = req.body;
+
+  // Update the user's password in the database
+  db.query("UPDATE user SET passwords = ? WHERE email = ?", [passwords[1], email], (err, result) => {
+    if (err) {
+      console.error("Error updating password in the database:", err);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+
+    if (result.affectedRows === 1) {
+      res.redirect('/login')
+    } else {
+      return res.status(404).json({ message: "User with this email does not exist." });
+    }
+  });
+});
+
+app.get("/forgot-password", (req, res) => {
+  // Render your forgot password page here
+  res.render("forgot-password"); // Assuming you are using a templating engine like EJS or Pug
+});
 app.use((req, res) => {
   res.status(404).send("Not Found");
 });
