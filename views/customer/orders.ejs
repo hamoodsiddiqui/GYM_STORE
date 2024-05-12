@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>VINTRO GYM - Equipment Section</title>
+    <title>VINTRO GYM - Cart</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="" />
     <meta
@@ -11,11 +11,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- Favicon -->
-    <link
-      rel="shortcut icon"
-      type="image/x-icon"
-      href="assets/vintrogym.png"
-    />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/vintrogym.png" />
 
     <!-- CSS
 	============================================ -->
@@ -46,19 +42,31 @@
     -->
 
     <!-- Main Style CSS (Please use minify version for better website load performance) -->
-    <link rel="stylesheet" href="/customer/assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
     <!--<link rel="stylesheet" href="assets/css/style.min.css">-->
   </head>
-
+  <script>
+    // Define the formatDate function
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const options = {
+        weekday: "long",
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+      };
+      return date.toLocaleDateString("en-US", options);
+    }
+  </script>
   <body class="template-color-1">
     <div class="main-wrapper">
-      <%-include("header2")%>
+      <%-include("header2.ejs")%>
       <div class="breadcrumb-area">
         <div class="container">
           <div class="breadcrumb-content">
             <ul>
-              <li><a href="/index-2">Home</a></li>
-              <li class="active">Gym Equipment</li>
+              <li><a href="index2">Home</a></li>
+              <li class="active">Cart</li>
             </ul>
           </div>
         </div>
@@ -72,21 +80,28 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th class="uren-product-remove">S. No</th>
-                      <th class="uren-product-thumbnail">Gallery</th>
+                      <th class="uren-product-remove">S.No</th>
+                      <th class="uren-product-thumbnail">images</th>
                       <th class="cart-product-name">Product</th>
                       <th class="uren-product-price">Unit Price</th>
+                      <th class="uren-product-quantity">Quantity</th>
+                      <th class="uren-product-subtotal">Total</th>
+                      <th class="uren-product-subtotal">Status</th>
+                      <th class="uren-product-subtotal">
+                        Expected Delivery Date
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <% if (data.length === 0) { %>
-                    <% } else { %> <% data.forEach((item, index) => { %>
+                    <% if (orders.length === 0) { %>
+                    <p>Your cart is empty.</p>
+                    <% } else { %> <% orders.forEach((item, index) => { %>
                     <tr>
                       <td class="uren-product-remove">
                         <p><%= index + 1 %></p>
                       </td>
                       <td class="uren-product-thumbnail">
-                        <a href="/gymequipment/details/<%= item.product_id %>"
+                        <a href="javascript:void(0)"
                           ><img
                             src="http://localhost:3000/<%= item.imageurl %>"
                             alt="<%= item.product_name %> Image"
@@ -100,6 +115,20 @@
                       <td class="uren-product-price">
                         <span class="amount"><%= item.price %></span>
                       </td>
+                      <td class="quantity">
+                        <p><%= item.quantity %></p>
+                      </td>
+                      <td class="product-subtotal">
+                        <span class="amount"
+                          ><%= item.price * item.quantity %></span
+                        >
+                      </td>
+                      <td class="product-subtotal">
+                        <span class="amount"><%= item.Status %></span>
+                      </td>
+                      <td class="product-subtotal">
+                        <span class="amount"><%= item.Delivery_Date %></span>
+                      </td>
                     </tr>
                     <% }); %> <% } %>
                   </tbody>
@@ -108,9 +137,18 @@
               <div class="row">
                 <div class="col-md-5 ml-auto">
                   <div class="cart-page-total">
-                    <h2></h2>
+                    <h2>Cart totals</h2>
 
-               
+                    <form action="/checkout" method="get">
+                      <!-- <a href="/views/checkout.ejs"</a> -->
+                      <button class="btn btn-primary" type="submit">
+                        Proceed to Checkout
+                      </button>
+                    </form>
+                    <form action="/cart/delete" method="post">
+                      <button class="btn btn-danger mt-3" type="submit">
+                        Delete
+                      </button>
                     </form>
                   </div>
                 </div>
@@ -126,45 +164,46 @@
 ============================================ -->
 
     <!-- jQuery JS -->
-    <script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- Modernizer JS -->
-    <script src="/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- Popper JS -->
-    <script src="/assets/js/vendor/popper.min.js"></script>
+    <script src="assets/js/vendor/popper.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
 
     <!-- Slick Slider JS -->
-    <script src="/assets/js/plugins/slick.min.js"></script>
+    <script src="assets/js/plugins/slick.min.js"></script>
     <!-- Barrating JS -->
-    <script src="/assets/js/plugins/jquery.barrating.min.js"></script>
+    <script src="assets/js/plugins/jquery.barrating.min.js"></script>
     <!-- Counterup JS -->
-    <script src="/assets/js/plugins/jquery.counterup.js"></script>
-    <!-- Nice Select 
-    <script src="/assets/js/plugins/jquery.nice-select.js"></script>
+    <script src="assets/js/plugins/jquery.counterup.js"></script>
+    <!-- Nice Select JS -->
+    <script src="assets/js/plugins/jquery.nice-select.js"></script>
     <!-- Sticky Sidebar JS -->
-    <script src="/assets/js/plugins/jquery.sticky-sidebar.js"></script>
+    <script src="assets/js/plugins/jquery.sticky-sidebar.js"></script>
     <!-- Jquery-ui JS -->
-    <script src="/assets/js/plugins/jquery-ui.min.js"></script>
-    <script src="/assets/js/plugins/jquery.ui.touch-punch.min.js"></script>
+    <script src="assets/js/plugins/jquery-ui.min.js"></script>
+    <script src="assets/js/plugins/jquery.ui.touch-punch.min.js"></script>
     <!-- Lightgallery JS -->
-    <script src="/assets/js/plugins/lightgallery.min.js"></script>
+    <script src="assets/js/plugins/lightgallery.min.js"></script>
     <!-- Scroll Top JS -->
-    <script src="/assets/js/plugins/scroll-top.js"></script>
+    <script src="assets/js/plugins/scroll-top.js"></script>
     <!-- Theia Sticky Sidebar JS -->
-    <script src="/assets/js/plugins/theia-sticky-sidebar.min.js"></script>
+    <script src="assets/js/plugins/theia-sticky-sidebar.min.js"></script>
     <!-- Waypoints JS -->
-    <script src="/assets/js/plugins/waypoints.min.js"></script>
+    <script src="assets/js/plugins/waypoints.min.js"></script>
     <!-- jQuery Zoom JS -->
-    <script src="/assets/js/plugins/jquery.zoom.min.js"></script>
+    <script src="assets/js/plugins/jquery.zoom.min.js"></script>
 
     <!-- Vendor & Plugins JS (Please remove the comment from below vendor.min.js & plugins.min.js for better website load performance and remove js files from avobe) -->
-    
-<script src="/assets/js/vendor/vendor.min.js"></script>
-<script src="/assets/js/plugins/plugins.min.js"></script>
-
+    <!--
+<script src="assets/js/vendor/vendor.min.js"></script>
+<script src="assets/js/plugins/plugins.min.js"></script>
+-->
+    <script src="/utils/date_script.js"></script>
 
     <!-- Main JS -->
-    <script src="/assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
   </body>
 </html>

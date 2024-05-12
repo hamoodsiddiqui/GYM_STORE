@@ -11,6 +11,7 @@ const auth = require("./routes/auth");
 const methodOverride = require("method-override");
 const multer = require("multer");
 const dotenv = require("dotenv");
+
 dotenv.config();
 const fs = require("fs");
 app.use(
@@ -87,7 +88,7 @@ const storage = multer.diskStorage({
 
 // Create Multer instance
 const upload = multer({ storage: storage });
-
+//const utils = require("./utils");
 const checkUserRole = (requiredRole) => {
   return (req, res, next) => {
     // Check if user is authenticated and has a role
@@ -1857,16 +1858,73 @@ app.post("/forgot-password", (req, res) => {
   const { email, passwords } = req.body;
 
   // Update the user's password in the database
-  db.query("UPDATE user SET passwords = ? WHERE email = ?", [passwords[1], email], (err, result) => {
-    if (err) {
-      console.error("Error updating password in the database:", err);
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
+  db.query(
+    "UPDATE user SET passwords = ? WHERE email = ?",
+    [passwords[1], email],
+    (err, result) => {
+      if (err) {
+        console.error("Error updating password in the database:", err);
+        return res.status(500).json({ message: "Internal Server Error" });
+      }
 
-    if (result.affectedRows === 1) {
-      res.redirect('/login')
+      if (result.affectedRows === 1) {
+        res.redirect("/login");
+      } else {
+        return res
+          .status(404)
+          .json({ message: "User with this email does not exist." });
+      }
+    }
+  );
+});
+// app.get("/myorders", (req, res) => {
+//   const userId = req.session.userId; // Assuming you store user ID in session during login
+
+//   // Fetch orders based on the user ID
+//   const selectOrdersQuery = `
+//     SELECT Orders.*, Products.*, OrderItems.quantity
+//     FROM Orders
+//     JOIN OrderItems ON Orders.order_id = OrderItems.order_id
+//     JOIN Products ON OrderItems.product_id = Products.product_id
+//     WHERE Orders.customer_id = ?
+//   `;
+
+//   db.query(selectOrdersQuery, [userId], (err, orders) => {
+//     if (err) {
+//       console.error("Error fetching orders:", err);
+//       res
+//         .status(500)
+//         .json({ error: "An error occurred while fetching orders" });
+//     } else {
+//       // Render your 'orders.ejs' template with the fetched orders
+//       res.render("customer/orders.ejs", { orders: orders });
+//     }
+//   });
+// });
+app.get("/myorders", (req, res) => {
+  const userId = req.session.userId; // Assuming you store user ID in session during login
+
+  // Fetch orders with shipping details based on the user ID
+  const selectOrdersQuery = `
+    SELECT Orders.*, Products.*, OrderItems.quantity,
+           ShippingDetails.Address, ShippingDetails.Payment_Method,
+           ShippingDetails.Amount, ShippingDetails.Delivery_Date
+    FROM Orders
+    JOIN OrderItems ON Orders.order_id = OrderItems.order_id
+    JOIN Products ON OrderItems.product_id = Products.product_id
+    JOIN ShippingDetails ON Orders.order_id = ShippingDetails.order_id
+    WHERE Orders.customer_id = ?
+  `;
+
+  db.query(selectOrdersQuery, [userId], (err, orders) => {
+    if (err) {
+      console.error("Error fetching orders:", err);
+      res
+        .status(500)
+        .json({ error: "An error occurred while fetching orders" });
     } else {
-      return res.status(404).json({ message: "User with this email does not exist." });
+      // Render your 'orders.ejs' template with the fetched orders
+      res.render("customer/orders.ejs", { orders: orders });
     }
   });
 });
