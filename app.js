@@ -342,7 +342,7 @@ app.get("/merchandise/details/:productId", (req, res) => {
 
       // Render your 'merchandise_details.ejs' template with the combined data
       res.render("customer/merchandise_details.ejs", {
-        merchandise: combinedData[0],
+        data: combinedData[0],
       }); // Assuming only one row is returned
     });
   });
@@ -715,11 +715,11 @@ app.post("/supplements/add", upload.single("image"), (req, res) => {
   } = req.body;
   const product_type = "Supplements";
 
-  // Check if an image was uploaded
+ 
   const imageurl = req.file ? "uploads/" + req.file.filename : null;
 
   if (product_name && description && price && stock_quantity && brand) {
-    // Create a new product
+    
     const productQuery =
       "INSERT INTO Products (product_type, product_name, brand, description,imageurl, price, stock_quantity) VALUES (?, ?, ?, ?, ?, ?, ?)";
     db.query(
@@ -742,11 +742,11 @@ app.post("/supplements/add", upload.single("image"), (req, res) => {
         } else {
           console.log("Product created successfully");
 
-          // Now, insert the supplement using the product ID from the inserted product
+      
           const productId = result.insertId;
 
           if (weight && expiry_date) {
-            // Create a new supplement
+            
             const supplementQuery =
               "INSERT INTO Supplements (product_id, weight, expiry_date) VALUES (?, ?, ?)";
             db.query(
@@ -1752,10 +1752,9 @@ app.post("/supplements/add-to-cart/:productId", (req, res) => {
       return res.status(404).json({ error: "Product not found" });
     }
 
-    // Extract relevant information from the product data
     const { product_id, product_name, price, stock_quantity } = productData[0];
 
-    // Check if the cart exists for the user
+    
     const selectCartQuery = "SELECT * FROM Cart WHERE customer_id = ?";
 
     db.query(selectCartQuery, [req.session.userId], (err, cartData) => {
@@ -1767,10 +1766,10 @@ app.post("/supplements/add-to-cart/:productId", (req, res) => {
       }
 
       let cartId;
-      if (cartData.length === 0) {
+      if (cartData.length === 0) {    //cheking if cart exist and if it doesnt we make a new cart for that customer
         // If the cart does not exist, create a new cart
         const insertCartQuery =
-          "INSERT INTO Cart (customer_id, date_created) VALUES (?, CURDATE())";
+          "INSERT INTO Cart (customer_id, date_created) VALUES (?, CURDATE())"; 
         db.query(insertCartQuery, [req.session.userId], (err, result) => {
           if (err) {
             console.error("Error creating new cart:", err);
